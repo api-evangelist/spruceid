@@ -1,0 +1,270 @@
+name: SpruceID
+description: >-
+  SpruceID is a decentralized identity company providing open-source tools and
+  infrastructure for governments and enterprises to issue, verify, and manage
+  digital identity credentials. Their platform supports W3C Verifiable
+  Credentials, Decentralized Identifiers (DIDs), OpenID for Verifiable
+  Credential Issuance (OID4VCI), OpenID for Verifiable Presentations (OID4VP),
+  Sign-In with Ethereum (SIWE), and ISO/IEC 18013-5 mobile driver's licenses
+  (mDL). SpruceID's SpruceKit toolkit enables developers to build wallet apps,
+  credential issuers, and verifier integrations using standards-based identity
+  protocols.
+image: https://spruceid.com/favicon.ico
+tags:
+  - Decentralized Identity
+  - Verifiable Credentials
+  - DIDs
+  - Sign-In with Ethereum
+  - Identity Wallet
+  - Government
+  - OpenID Connect
+  - W3C Standards
+created: '2026-06-14'
+modified: '2026-06-14'
+url: https://raw.githubusercontent.com/api-evangelist/spruceid/refs/heads/main/apis.yml
+specificationVersion: '0.19'
+apis:
+  - name: SpruceID DIDKit HTTP API
+    description: >-
+      DIDKit is SpruceID's cross-platform toolkit for working with W3C
+      Decentralized Identifiers (DIDs) and Verifiable Credentials (VCs). The
+      DIDKit HTTP server exposes REST endpoints for issuing, presenting, and
+      verifying verifiable credentials and verifiable presentations using
+      standard cryptographic proofs. It implements the W3C VC API specification
+      and supports multiple DID methods including did:key, did:web, did:ethr,
+      and did:tz. Note: DIDKit HTTP does not include built-in authorization and
+      should be deployed behind a reverse proxy in production.
+    image: https://spruceid.com/favicon.ico
+    humanURL: https://spruceid.dev/docs/didkit/
+    baseURL: https://localhost:8080
+    tags:
+      - Verifiable Credentials
+      - DIDs
+      - W3C VC API
+      - Credential Issuance
+      - Credential Verification
+    properties:
+      - type: Documentation
+        url: https://spruceid.dev/docs/didkit/
+      - type: GitHubRepository
+        url: https://github.com/spruceid/didkit-http
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/spruceid/didkit-http/main/openapi.yaml
+    contact:
+      - FN: SpruceID Developer Support
+        email: hello@spruceid.com
+        X-github: https://github.com/spruceid
+    meta:
+      - key: SourceCode
+        value: https://github.com/spruceid/didkit
+      - key: DockerImage
+        value: ghcr.io/spruceid/didkit-http
+
+  - name: SpruceID Sign-In with Ethereum (SIWE) API
+    description: >-
+      Sign-In with Ethereum (SIWE) enables Ethereum accounts to authenticate
+      with off-chain services by signing a standardized message format (EIP-4361).
+      SpruceID's SIWE library provides client and server implementations in
+      TypeScript for integrating Ethereum wallet-based authentication into web
+      applications. The SIWE-OIDC component wraps SIWE in an OpenID Connect
+      Identity Provider, enabling drop-in integration with OAuth 2.0 and OIDC
+      flows. Supported wallets include MetaMask, Coinbase Wallet, and any
+      WalletConnect-compatible wallet. ENS domain resolution is included for
+      human-readable usernames.
+    image: https://spruceid.com/favicon.ico
+    humanURL: https://eips.ethereum.org/EIPS/eip-4361
+    baseURL: https://oidc.spruceid.com
+    tags:
+      - Authentication
+      - Sign-In with Ethereum
+      - SIWE
+      - OpenID Connect
+      - Ethereum
+      - Blockchain Identity
+    properties:
+      - type: Documentation
+        url: https://spruceid.dev/docs/
+      - type: GitHubRepository
+        url: https://github.com/spruceid/siwe
+      - type: GitHubRepository
+        url: https://github.com/spruceid/siwe-oidc
+      - type: NPMPackage
+        url: https://www.npmjs.com/package/siwe
+    contact:
+      - FN: SpruceID Developer Support
+        email: hello@spruceid.com
+        X-github: https://github.com/spruceid
+    meta:
+      - key: EIP
+        value: EIP-4361
+      - key: OIDCDiscovery
+        value: /.well-known/openid-configuration
+
+  - name: SpruceID SSI Core Library API
+    description: >-
+      The SpruceID SSI (Self-Sovereign Identity) core library provides a
+      comprehensive Rust API for signing, issuing, and verifying W3C Verifiable
+      Credentials and JSON Web Tokens. It supports VC Data Model 1.1 and 2.0,
+      JWT-VC, Data Integrity proofs, BBS+ selective disclosure, and a wide range
+      of cryptographic signature suites including EdDSA, secp256k1, P-256, and
+      more. The library has undergone a Trail of Bits security audit and serves
+      as the foundation for DIDKit and other SpruceID tooling.
+    image: https://spruceid.com/favicon.ico
+    humanURL: https://github.com/spruceid/ssi
+    baseURL: https://crates.io/crates/ssi
+    tags:
+      - Verifiable Credentials
+      - DIDs
+      - Cryptography
+      - W3C Standards
+      - Rust Library
+      - JWT
+      - Selective Disclosure
+    properties:
+      - type: Documentation
+        url: https://docs.rs/ssi/
+      - type: GitHubRepository
+        url: https://github.com/spruceid/ssi
+      - type: RustCrate
+        url: https://crates.io/crates/ssi
+    contact:
+      - FN: SpruceID Developer Support
+        email: hello@spruceid.com
+        X-github: https://github.com/spruceid
+    meta:
+      - key: SecurityAudit
+        value: Trail of Bits (March 2022)
+      - key: License
+        value: Apache-2.0
+
+  - name: SpruceID OID4VCI Credential Issuance API
+    description: >-
+      SpruceID's OID4VCI (OpenID for Verifiable Credential Issuance) Rust
+      library implements the OpenID4VC credential issuance protocol, enabling
+      credential issuers to deliver W3C Verifiable Credentials to holder
+      wallets. The protocol extends OAuth 2.0 with credential endpoint flows
+      including pre-authorized code flow and authorization code flow. Supported
+      credential formats include JWT-VC, LDP-VC, SD-JWT VC, and ISO/IEC
+      18013-5 mobile documents (mDL). Used as the issuance layer in the
+      SpruceKit mobile SDK.
+    image: https://spruceid.com/favicon.ico
+    humanURL: https://github.com/spruceid/oid4vci-rs
+    baseURL: https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html
+    tags:
+      - Credential Issuance
+      - OID4VCI
+      - OpenID Connect
+      - Verifiable Credentials
+      - mDL
+      - OAuth 2.0
+    properties:
+      - type: Documentation
+        url: https://www.sprucekit.dev/
+      - type: GitHubRepository
+        url: https://github.com/spruceid/oid4vci-rs
+      - type: Specification
+        url: https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html
+    contact:
+      - FN: SpruceID Developer Support
+        email: hello@spruceid.com
+        X-github: https://github.com/spruceid
+    meta:
+      - key: Language
+        value: Rust
+      - key: Protocol
+        value: OID4VCI
+
+  - name: SpruceID OID4VP Verifiable Presentations API
+    description: >-
+      SpruceID's OID4VP (OpenID for Verifiable Presentations) Rust library
+      implements the OpenID4VC credential presentation protocol, enabling
+      verifier applications to request and receive verifiable credentials from
+      holder wallets. The library handles presentation definitions, selective
+      disclosure, and cryptographic proof verification. Supported credential
+      formats include JWT-VC, LDP-VC, SD-JWT VC, and ISO/IEC 18013-5 mobile
+      driver's licenses (mDL) for offline presentation. Integrates with
+      SpruceKit mobile SDKs for iOS and Android wallet apps.
+    image: https://spruceid.com/favicon.ico
+    humanURL: https://github.com/spruceid/openid4vp
+    baseURL: https://openid.net/specs/openid-4-verifiable-presentations-1_0.html
+    tags:
+      - Credential Verification
+      - OID4VP
+      - OpenID Connect
+      - Verifiable Presentations
+      - mDL
+      - Privacy-Preserving
+    properties:
+      - type: Documentation
+        url: https://www.sprucekit.dev/
+      - type: GitHubRepository
+        url: https://github.com/spruceid/openid4vp
+      - type: Specification
+        url: https://openid.net/specs/openid-4-verifiable-presentations-1_0.html
+    contact:
+      - FN: SpruceID Developer Support
+        email: hello@spruceid.com
+        X-github: https://github.com/spruceid
+    meta:
+      - key: Language
+        value: Rust
+      - key: Protocol
+        value: OID4VP
+
+  - name: SpruceID isomdl Mobile Driver's License API
+    description: >-
+      SpruceID's isomdl library provides a Rust implementation of the ISO/IEC
+      18013-5 standard for mobile driver's licenses (mDL). It enables issuers
+      to create standards-compliant mDL credentials and verifiers to request
+      and validate presentations both online and in offline (proximity)
+      scenarios. The library is integrated into SpruceKit mobile SDKs for iOS
+      and Android, supporting real-world deployment of government-issued digital
+      identity documents.
+    image: https://spruceid.com/favicon.ico
+    humanURL: https://github.com/spruceid/isomdl
+    baseURL: https://crates.io/crates/isomdl
+    tags:
+      - Mobile Driver's License
+      - mDL
+      - ISO 18013-5
+      - Government Identity
+      - Offline Verification
+    properties:
+      - type: Documentation
+        url: https://www.sprucekit.dev/
+      - type: GitHubRepository
+        url: https://github.com/spruceid/isomdl
+      - type: RustCrate
+        url: https://crates.io/crates/isomdl
+    contact:
+      - FN: SpruceID Developer Support
+        email: hello@spruceid.com
+        X-github: https://github.com/spruceid
+    meta:
+      - key: Standard
+        value: ISO/IEC 18013-5
+      - key: Language
+        value: Rust
+
+common:
+  - type: Website
+    url: https://spruceid.com
+  - type: Developer
+    url: https://www.sprucekit.dev/
+  - type: Blog
+    url: https://blog.spruceid.com
+  - type: GitHub
+    url: https://github.com/spruceid
+  - type: KnowledgeBase
+    url: https://learn.spruceid.com
+  - type: PrivacyPolicy
+    url: https://spruceid.com/privacy
+  - type: Contact
+    url: https://spruceid.com/contact
+  - type: Discord
+    url: https://discord.gg/spruceid
+maintainers:
+  - FN: SpruceID
+    email: hello@spruceid.com
+    X-github: https://github.com/spruceid
+    X-website: https://spruceid.com
