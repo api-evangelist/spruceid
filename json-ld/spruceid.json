@@ -1,0 +1,214 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "schema": "https://schema.org/",
+    "did": "https://www.w3.org/ns/did#",
+    "vc": "https://www.w3.org/2018/credentials#",
+    "spruceid": "https://spruceid.com/vocab#",
+    "siwe": "https://eips.ethereum.org/EIPS/eip-4361#",
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "email": "schema:email",
+    "provider": {
+      "@id": "schema:provider",
+      "@type": "@id"
+    },
+    "SpruceID": {
+      "@id": "spruceid:SpruceID",
+      "@type": "@id"
+    },
+    "DIDKit": {
+      "@id": "spruceid:DIDKit",
+      "@type": "@id"
+    },
+    "SpruceKitSDK": {
+      "@id": "spruceid:SpruceKitSDK",
+      "@type": "@id"
+    },
+    "decentralizedIdentifier": {
+      "@id": "did:id",
+      "@type": "@id"
+    },
+    "didMethod": {
+      "@id": "spruceid:didMethod"
+    },
+    "verifiableCredential": {
+      "@id": "vc:credential",
+      "@type": "@id"
+    },
+    "credentialFormat": {
+      "@id": "spruceid:credentialFormat"
+    },
+    "proofType": {
+      "@id": "spruceid:proofType"
+    },
+    "siweMessage": {
+      "@id": "siwe:message"
+    },
+    "walletCompatibility": {
+      "@id": "spruceid:walletCompatibility"
+    },
+    "securityAudit": {
+      "@id": "spruceid:securityAudit"
+    },
+    "standard": {
+      "@id": "spruceid:standard"
+    },
+    "language": {
+      "@id": "spruceid:language"
+    },
+    "license": {
+      "@id": "spruceid:license"
+    },
+    "vcDataModel": {
+      "@id": "spruceid:vcDataModel"
+    },
+    "didMethods": {
+      "@id": "spruceid:didMethods",
+      "@container": "@set"
+    },
+    "oidcScope": {
+      "@id": "spruceid:oidcScope"
+    },
+    "mobileCredentialFormat": {
+      "@id": "spruceid:mobileCredentialFormat"
+    },
+    "bitstringStatusList": {
+      "@id": "https://www.w3.org/ns/credentials/status#BitstringStatusList"
+    }
+  },
+  "@graph": [
+    {
+      "@type": "SpruceID",
+      "@id": "https://spruceid.com",
+      "name": "SpruceID",
+      "description": "Decentralized identity company providing open-source tools and infrastructure for governments and enterprises to issue, verify, and manage digital identity credentials.",
+      "url": "https://spruceid.com",
+      "email": "hello@spruceid.com",
+      "standard": [
+        "W3C Verifiable Credentials",
+        "W3C Decentralized Identifiers",
+        "OpenID for Verifiable Credential Issuance (OID4VCI)",
+        "OpenID for Verifiable Presentations (OID4VP)",
+        "ISO/IEC 18013-5 mDL",
+        "EIP-4361 Sign-In with Ethereum"
+      ]
+    },
+    {
+      "@type": "DIDKit",
+      "@id": "https://github.com/spruceid/didkit",
+      "name": "DIDKit",
+      "description": "Cross-platform toolkit for W3C Decentralized Identifiers (DIDs) and Verifiable Credentials (VCs). Available as CLI, HTTP server, and library bindings for Rust, Python, Java, Flutter, and more.",
+      "url": "https://spruceid.dev/docs/didkit/",
+      "didMethods": [
+        "did:key",
+        "did:web",
+        "did:ethr",
+        "did:tz",
+        "did:pkh"
+      ],
+      "credentialFormat": [
+        "JWT-VC",
+        "LDP-VC",
+        "SD-JWT VC"
+      ],
+      "proofType": [
+        "DataIntegrityProof",
+        "Ed25519Signature2020",
+        "EcdsaSecp256k1Signature2019"
+      ],
+      "vcDataModel": [
+        "VC Data Model 1.1",
+        "VC Data Model 2.0"
+      ],
+      "language": "Rust",
+      "license": "Apache-2.0",
+      "securityAudit": "Trail of Bits (March 2022)"
+    },
+    {
+      "@type": "schema:SoftwareApplication",
+      "@id": "https://github.com/spruceid/siwe",
+      "name": "Sign-In with Ethereum (SIWE)",
+      "description": "TypeScript library enabling Ethereum wallet-based authentication for web applications implementing EIP-4361.",
+      "url": "https://spruceid.dev/docs/",
+      "standard": "EIP-4361",
+      "walletCompatibility": [
+        "MetaMask",
+        "Coinbase Wallet",
+        "WalletConnect"
+      ],
+      "language": ["TypeScript", "Rust", "Python", "Go", "Ruby", "Elixir"],
+      "license": "MIT"
+    },
+    {
+      "@type": "schema:SoftwareApplication",
+      "@id": "https://github.com/spruceid/siwe-oidc",
+      "name": "SIWE-OIDC",
+      "description": "OpenID Connect Identity Provider wrapping Sign-In with Ethereum, enabling OIDC/OAuth 2.0 integrations with Ethereum wallet authentication.",
+      "url": "https://spruceid.dev/docs/",
+      "oidcScope": "openid",
+      "standard": [
+        "OpenID Connect",
+        "OAuth 2.0",
+        "EIP-4361"
+      ]
+    },
+    {
+      "@type": "schema:SoftwareApplication",
+      "@id": "https://github.com/spruceid/oid4vci-rs",
+      "name": "SpruceID OID4VCI",
+      "description": "Rust implementation of OpenID for Verifiable Credential Issuance (OID4VCI), enabling credential issuers to deliver W3C Verifiable Credentials to holder wallets via pre-authorized and authorization code flows.",
+      "url": "https://www.sprucekit.dev/",
+      "standard": "OpenID for Verifiable Credential Issuance (OID4VCI)",
+      "mobileCredentialFormat": [
+        "JWT-VC",
+        "LDP-VC",
+        "SD-JWT VC",
+        "ISO/IEC 18013-5 mDL"
+      ],
+      "language": "Rust",
+      "license": "Apache-2.0"
+    },
+    {
+      "@type": "schema:SoftwareApplication",
+      "@id": "https://github.com/spruceid/openid4vp",
+      "name": "SpruceID OID4VP",
+      "description": "Rust implementation of OpenID for Verifiable Presentations (OID4VP), enabling verifier applications to request and receive verifiable credentials from holder wallets.",
+      "url": "https://www.sprucekit.dev/",
+      "standard": "OpenID for Verifiable Presentations (OID4VP)",
+      "mobileCredentialFormat": [
+        "JWT-VC",
+        "LDP-VC",
+        "SD-JWT VC",
+        "ISO/IEC 18013-5 mDL"
+      ],
+      "language": "Rust",
+      "license": "Apache-2.0"
+    },
+    {
+      "@type": "schema:SoftwareApplication",
+      "@id": "https://github.com/spruceid/isomdl",
+      "name": "isomdl",
+      "description": "Rust implementation of ISO/IEC 18013-5 mobile driver's license (mDL). Enables issuers to create standards-compliant mDL credentials and verifiers to request and validate presentations online and in offline/proximity scenarios.",
+      "url": "https://www.sprucekit.dev/",
+      "standard": "ISO/IEC 18013-5",
+      "language": "Rust",
+      "license": "Apache-2.0"
+    },
+    {
+      "@type": "SpruceKitSDK",
+      "@id": "https://www.sprucekit.dev/",
+      "name": "SpruceKit Mobile SDK",
+      "description": "Mobile SDK for iOS and Android that integrates DIDKit, OID4VCI, OID4VP, and isomdl to enable wallet apps for verifiable credentials and mobile driver's licenses.",
+      "url": "https://www.sprucekit.dev/",
+      "language": ["Swift", "Kotlin", "Flutter"],
+      "mobileCredentialFormat": [
+        "OID4VCI",
+        "OID4VP",
+        "ISO/IEC 18013-5 mDL"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,958 @@
+openapi: 3.0.3
+info:
+  title: SpruceID DIDKit HTTP API
+  description: >-
+    DIDKit is SpruceID's cross-platform toolkit for working with W3C
+    Decentralized Identifiers (DIDs) and Verifiable Credentials (VCs). The
+    DIDKit HTTP server exposes REST endpoints for issuing, presenting, and
+    verifying verifiable credentials and verifiable presentations using
+    standard cryptographic proofs. It implements the W3C VC API specification
+    and supports multiple DID methods including did:key, did:web, did:ethr,
+    and did:tz. DIDKit HTTP does not include built-in authorization and should
+    be deployed behind a reverse proxy in production.
+  version: 1.0.0
+  contact:
+    name: SpruceID Developer Support
+    email: hello@spruceid.com
+    url: https://spruceid.dev/docs/didkit/
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  x-logo:
+    url: https://spruceid.com/favicon.ico
+externalDocs:
+  description: SpruceID DIDKit Documentation
+  url: https://spruceid.dev/docs/didkit/
+servers:
+  - url: http://localhost:8080
+    description: Local DIDKit HTTP server instance
+tags:
+  - name: Health
+    description: Health check endpoints
+  - name: Credentials
+    description: >-
+      Issue and verify W3C Verifiable Credentials using the VC API
+      specification. Supports both legacy (/issue/credentials, /verify/credentials)
+      and current (/credentials/issue, /credentials/verify) path styles.
+  - name: Presentations
+    description: >-
+      Issue and verify W3C Verifiable Presentations. Supports both legacy
+      (/issue/presentations, /verify/presentations) and current
+      (/presentations/issue, /presentations/verify) path styles.
+  - name: Identifiers
+    description: DID resolution implementing the W3C DID Resolution HTTP binding.
+  - name: Status
+    description: Bitstring Status List credential endpoint for credential revocation status.
+paths:
+  /healthz:
+    get:
+      summary: Health Check
+      description: Returns a 200 OK if the server is running and healthy.
+      operationId: healthCheck
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Server is healthy
+
+  /credentials/issue:
+    post:
+      summary: Issue Verifiable Credential
+      description: >-
+        Issues a W3C Verifiable Credential by adding a cryptographic proof.
+        Supports Data Integrity proofs (LDP) and JSON Web Token (JWT) proof
+        formats. The issuer DID must match a key configured in the server.
+        Supported DID methods include did:key, did:web, did:ethr, and did:tz.
+      operationId: issueCredential
+      tags:
+        - Credentials
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssueCredentialRequest'
+            examples:
+              dataIntegrityProof:
+                summary: Issue with EdDSA Data Integrity Proof
+                value:
+                  credential:
+                    '@context':
+                      - https://www.w3.org/2018/credentials/v1
+                    id: urn:uuid:86294362-4254-4f36-854f-3952fe42555d
+                    type:
+                      - VerifiableCredential
+                    issuer: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+                    issuanceDate: '2020-03-16T22:37:26.544Z'
+                    credentialSubject:
+                      id: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+                  options:
+                    proofFormat: ldp
+                    verificationMethod: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+                    proofPurpose: assertionMethod
+              jwtVc:
+                summary: Issue as JWT-VC
+                value:
+                  credential:
+                    '@context':
+                      - https://www.w3.org/2018/credentials/v1
+                    type:
+                      - VerifiableCredential
+                    issuer: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+                    issuanceDate: '2020-03-16T22:37:26.544Z'
+                    credentialSubject:
+                      id: did:example:abcdefgh
+                  options:
+                    proofFormat: jwt
+      responses:
+        '201':
+          description: Verifiable Credential issued successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssueCredentialResponse'
+        '400':
+          description: Bad request - invalid credential or options
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error - signing failure or DID resolution error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /issue/credentials:
+    post:
+      summary: Issue Verifiable Credential (legacy path)
+      description: >-
+        Legacy VC HTTP API 0.0.1 path for issuing verifiable credentials.
+        Identical functionality to POST /credentials/issue.
+      operationId: issueCredentialLegacy
+      tags:
+        - Credentials
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssueCredentialRequest'
+      responses:
+        '201':
+          description: Verifiable Credential issued successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssueCredentialResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /credentials/verify:
+    post:
+      summary: Verify Verifiable Credential
+      description: >-
+        Verifies a W3C Verifiable Credential by checking its cryptographic
+        proof, credential status (if applicable), and other properties.
+        Returns a verification result with checks performed, warnings, and errors.
+      operationId: verifyCredential
+      tags:
+        - Credentials
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyCredentialRequest'
+            examples:
+              ldpCredential:
+                summary: Verify a credential with Data Integrity proof
+                value:
+                  verifiableCredential:
+                    '@context':
+                      - https://www.w3.org/2018/credentials/v1
+                      - https://w3id.org/security/data-integrity/v2
+                    id: urn:uuid:86294362-4254-4f36-854f-3952fe42555d
+                    type:
+                      - VerifiableCredential
+                    issuer: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+                    issuanceDate: '2020-03-16T22:37:26.544Z'
+                    credentialSubject:
+                      id: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+                    proof:
+                      type: DataIntegrityProof
+                      cryptosuite: eddsa-rdfc-2022
+                      created: '2024-11-05T19:11:37Z'
+                      verificationMethod: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+                      proofPurpose: assertionMethod
+                      proofValue: z4WrjAqrwg92y1RR8S63rav...
+                  options: {}
+      responses:
+        '200':
+          description: Verification result returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationResult'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /verify/credentials:
+    post:
+      summary: Verify Verifiable Credential (legacy path)
+      description: >-
+        Legacy VC HTTP API 0.0.1 path for verifying verifiable credentials.
+        Identical functionality to POST /credentials/verify.
+      operationId: verifyCredentialLegacy
+      tags:
+        - Credentials
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyCredentialRequest'
+      responses:
+        '200':
+          description: Verification result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationResult'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /presentations/issue:
+    post:
+      summary: Issue Verifiable Presentation
+      description: >-
+        Issues a W3C Verifiable Presentation by adding a cryptographic proof.
+        The presentation must include a holder DID. Supports Data Integrity
+        proofs (LDP) and JSON Web Token (JWT) proof formats.
+      operationId: issuePresentation
+      tags:
+        - Presentations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssuePresentationRequest'
+            examples:
+              ldpPresentation:
+                summary: Issue a VP with LDP proof
+                value:
+                  presentation:
+                    '@context':
+                      - https://www.w3.org/2018/credentials/v1
+                    type:
+                      - VerifiablePresentation
+                    holder: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+                    verifiableCredential:
+                      - '@context':
+                          - https://www.w3.org/2018/credentials/v1
+                        type:
+                          - VerifiableCredential
+                        issuer: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+                        issuanceDate: '2020-03-16T22:37:26.544Z'
+                        credentialSubject:
+                          id: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+                        proof:
+                          type: DataIntegrityProof
+                          proofPurpose: assertionMethod
+                          proofValue: z4WrjAqr...
+                  options:
+                    proofFormat: ldp
+                    proofPurpose: authentication
+      responses:
+        '201':
+          description: Verifiable Presentation issued successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssuePresentationResponse'
+        '400':
+          description: Bad request - missing holder or invalid options
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /issue/presentations:
+    post:
+      summary: Issue Verifiable Presentation (legacy path)
+      description: >-
+        Legacy VC HTTP API 0.0.1 path for issuing verifiable presentations.
+        Identical functionality to POST /presentations/issue.
+      operationId: issuePresentationLegacy
+      tags:
+        - Presentations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssuePresentationRequest'
+      responses:
+        '201':
+          description: Verifiable Presentation issued successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssuePresentationResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /presentations/verify:
+    post:
+      summary: Verify Verifiable Presentation
+      description: >-
+        Verifies a W3C Verifiable Presentation by checking its cryptographic
+        proof and optionally the credentials it contains.
+      operationId: verifyPresentation
+      tags:
+        - Presentations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyPresentationRequest'
+      responses:
+        '200':
+          description: Verification result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationResult'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /verify/presentations:
+    post:
+      summary: Verify Verifiable Presentation (legacy path)
+      description: >-
+        Legacy VC HTTP API 0.0.1 path for verifying verifiable presentations.
+        Identical functionality to POST /presentations/verify.
+      operationId: verifyPresentationLegacy
+      tags:
+        - Presentations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyPresentationRequest'
+      responses:
+        '200':
+          description: Verification result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationResult'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /identifiers/{id}:
+    get:
+      summary: Resolve DID
+      description: >-
+        Resolves a Decentralized Identifier (DID) and returns its DID Document.
+        Implements the W3C DID Resolution HTTP binding. Supports content
+        negotiation for DID document representation format. Use the Accept
+        header to request a specific representation, or the
+        application/ld+json;profile="https://w3id.org/did-resolution" media
+        type for the full DID Resolution result including document metadata.
+        Supported DID methods include did:key, did:web, did:ethr, and did:tz.
+      operationId: resolveDid
+      tags:
+        - Identifiers
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The URL-encoded DID or DID URL to resolve
+          schema:
+            type: string
+            example: did%3Akey%3Az6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+        - name: Accept
+          in: header
+          required: false
+          description: >-
+            Content type for the response. Use
+            application/ld+json;profile="https://w3id.org/did-resolution"
+            for full resolution result, or application/did+json,
+            application/did+ld+json for DID document only.
+          schema:
+            type: string
+            default: application/ld+json
+            examples:
+              - application/ld+json
+              - 'application/ld+json;profile="https://w3id.org/did-resolution"'
+              - application/did+json
+              - application/did+ld+json
+      responses:
+        '200':
+          description: DID Document or DID Resolution Result
+          headers:
+            Content-Type:
+              description: Media type of the response
+              schema:
+                type: string
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/DidDocument'
+            application/did+json:
+              schema:
+                $ref: '#/components/schemas/DidDocument'
+            application/did+ld+json:
+              schema:
+                $ref: '#/components/schemas/DidDocument'
+        '301':
+          description: Redirect for DID URL dereference
+          headers:
+            Location:
+              description: URL to redirect to
+              schema:
+                type: string
+        '400':
+          description: Bad request - invalid DID format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: DID not found or could not be resolved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /statuslist:
+    get:
+      summary: Get Bitstring Status List Credential
+      description: >-
+        Returns a W3C Bitstring Status List verifiable credential that can be
+        used to check the revocation status of credentials issued by this
+        server. The status list encodes credential status as a compressed
+        bitstring. Each credential references a position in this list via a
+        BitstringStatusListEntry credentialStatus property.
+      operationId: getStatusList
+      tags:
+        - Status
+      responses:
+        '200':
+          description: Bitstring Status List Verifiable Credential
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BitstringStatusListCredential'
+        '500':
+          description: Internal server error - missing signing key or configuration error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    LDPOptions:
+      type: object
+      description: Options for Linked Data Proof (Data Integrity) credential operations
+      properties:
+        verificationMethod:
+          type: string
+          description: DID URL of the verification method to use for signing
+          example: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+        proofPurpose:
+          type: string
+          description: The proof purpose for the signature
+          enum:
+            - assertionMethod
+            - authentication
+            - keyAgreement
+            - contractAgreement
+            - capabilityInvocation
+            - capabilityDelegation
+          example: assertionMethod
+        cryptosuite:
+          type: string
+          description: The cryptographic suite to use for the Data Integrity proof
+          example: eddsa-rdfc-2022
+        created:
+          type: string
+          format: date-time
+          description: The date and time the proof was created (ISO 8601)
+
+    JWTOrLDPOptions:
+      type: object
+      description: >-
+        Combined options for credential/presentation operations. Controls
+        whether to produce a JWT or Linked Data Proof format.
+      properties:
+        proofFormat:
+          type: string
+          description: The proof format to use
+          enum:
+            - ldp
+            - jwt
+          default: ldp
+          example: ldp
+        verificationMethod:
+          type: string
+          description: DID URL of the verification method to use for signing
+          example: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+        proofPurpose:
+          type: string
+          description: The proof purpose for the signature
+          enum:
+            - assertionMethod
+            - authentication
+            - keyAgreement
+            - capabilityInvocation
+            - capabilityDelegation
+          example: assertionMethod
+        cryptosuite:
+          type: string
+          description: The cryptographic suite (for ldp format)
+          example: eddsa-rdfc-2022
+
+    VerificationOptions:
+      type: object
+      description: Options for verification operations
+      properties:
+        proofPurpose:
+          type: string
+          description: Expected proof purpose
+          enum:
+            - assertionMethod
+            - authentication
+            - keyAgreement
+            - capabilityInvocation
+            - capabilityDelegation
+        verificationMethod:
+          type: string
+          description: Expected verification method DID URL
+
+    VerifiableCredential:
+      type: object
+      description: >-
+        A W3C Verifiable Credential (VC Data Model 1.1 or 2.0). May be
+        represented as a JSON-LD credential with a linked data proof, or as a
+        JWT string.
+      required:
+        - '@context'
+        - type
+        - issuer
+        - credentialSubject
+      properties:
+        '@context':
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                oneOf:
+                  - type: string
+                  - type: object
+          description: JSON-LD context(s) for the credential
+          example:
+            - https://www.w3.org/2018/credentials/v1
+        id:
+          type: string
+          format: uri
+          description: Unique identifier for the credential
+          example: urn:uuid:86294362-4254-4f36-854f-3952fe42555d
+        type:
+          type: array
+          items:
+            type: string
+          description: Credential type(s), must include VerifiableCredential
+          example:
+            - VerifiableCredential
+        issuer:
+          oneOf:
+            - type: string
+              description: DID of the issuer
+            - type: object
+              description: Issuer object with id and optional metadata
+              properties:
+                id:
+                  type: string
+          example: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+        issuanceDate:
+          type: string
+          format: date-time
+          description: Date and time the credential was issued (VC 1.1)
+          example: '2020-03-16T22:37:26.544Z'
+        validFrom:
+          type: string
+          format: date-time
+          description: Date from which the credential is valid (VC 2.0)
+        expirationDate:
+          type: string
+          format: date-time
+          description: Expiration date of the credential (VC 1.1)
+        credentialSubject:
+          oneOf:
+            - type: object
+            - type: array
+              items:
+                type: object
+          description: The subject(s) of the credential
+        credentialStatus:
+          type: object
+          description: Credential status (e.g. BitstringStatusListEntry for revocation)
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+        proof:
+          oneOf:
+            - $ref: '#/components/schemas/DataIntegrityProof'
+            - type: array
+              items:
+                $ref: '#/components/schemas/DataIntegrityProof'
+          description: Cryptographic proof(s) on the credential
+
+    DataIntegrityProof:
+      type: object
+      description: A W3C Data Integrity cryptographic proof
+      properties:
+        type:
+          type: string
+          description: Proof type (e.g. DataIntegrityProof, Ed25519Signature2020)
+          example: DataIntegrityProof
+        cryptosuite:
+          type: string
+          description: The cryptographic suite used
+          example: eddsa-rdfc-2022
+        created:
+          type: string
+          format: date-time
+          description: When the proof was created
+          example: '2024-11-05T19:11:37Z'
+        verificationMethod:
+          type: string
+          description: DID URL of the verification method
+          example: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+        proofPurpose:
+          type: string
+          description: The purpose of this proof
+          example: assertionMethod
+        proofValue:
+          type: string
+          description: The base58-btc encoded proof value
+          example: z4WrjAqrwg92y1RR8S63rav19ZmYWx6Vs1HBcPJgXnCiEfef4i1NqKG7jMyM2DtNdMXvACudKcra92VPxW9hfatbZ
+        previousProof:
+          type: string
+          description: ID of a previous proof this proof covers (for multi-proof chaining)
+        id:
+          type: string
+          description: Optional identifier for this proof (for multi-proof referencing)
+
+    VerifiablePresentation:
+      type: object
+      description: A W3C Verifiable Presentation (VP Data Model 1.1 or 2.0)
+      required:
+        - '@context'
+        - type
+      properties:
+        '@context':
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                oneOf:
+                  - type: string
+                  - type: object
+          example:
+            - https://www.w3.org/2018/credentials/v1
+        type:
+          type: array
+          items:
+            type: string
+          example:
+            - VerifiablePresentation
+        holder:
+          type: string
+          description: DID of the holder (required for VP 1.1)
+          example: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+        verifiableCredential:
+          oneOf:
+            - $ref: '#/components/schemas/VerifiableCredential'
+            - type: string
+              description: JWT-encoded verifiable credential
+            - type: array
+              items:
+                oneOf:
+                  - $ref: '#/components/schemas/VerifiableCredential'
+                  - type: string
+          description: The credential(s) included in the presentation
+        proof:
+          oneOf:
+            - $ref: '#/components/schemas/DataIntegrityProof'
+            - type: array
+              items:
+                $ref: '#/components/schemas/DataIntegrityProof'
+
+    IssueCredentialRequest:
+      type: object
+      required:
+        - credential
+        - options
+      properties:
+        credential:
+          $ref: '#/components/schemas/VerifiableCredential'
+        options:
+          $ref: '#/components/schemas/JWTOrLDPOptions'
+
+    IssueCredentialResponse:
+      type: object
+      description: >-
+        A verifiable credential with proof added. If proofFormat was "jwt",
+        this will contain a JWT string in the verifiableCredential field.
+      properties:
+        verifiableCredential:
+          oneOf:
+            - $ref: '#/components/schemas/VerifiableCredential'
+            - type: string
+              description: JWT-encoded verifiable credential
+
+    VerifyCredentialRequest:
+      type: object
+      required:
+        - verifiableCredential
+      properties:
+        verifiableCredential:
+          oneOf:
+            - $ref: '#/components/schemas/VerifiableCredential'
+            - type: string
+              description: JWT-encoded verifiable credential
+        options:
+          $ref: '#/components/schemas/VerificationOptions'
+
+    IssuePresentationRequest:
+      type: object
+      required:
+        - presentation
+        - options
+      properties:
+        presentation:
+          $ref: '#/components/schemas/VerifiablePresentation'
+        options:
+          $ref: '#/components/schemas/JWTOrLDPOptions'
+
+    IssuePresentationResponse:
+      type: object
+      description: A verifiable presentation with proof added
+      properties:
+        verifiablePresentation:
+          oneOf:
+            - $ref: '#/components/schemas/VerifiablePresentation'
+            - type: string
+              description: JWT-encoded verifiable presentation
+
+    VerifyPresentationRequest:
+      type: object
+      required:
+        - verifiablePresentation
+      properties:
+        verifiablePresentation:
+          oneOf:
+            - $ref: '#/components/schemas/VerifiablePresentation'
+            - type: string
+              description: JWT-encoded verifiable presentation
+        options:
+          $ref: '#/components/schemas/VerificationOptions'
+
+    VerificationResult:
+      type: object
+      description: >-
+        Summary of verification checks performed on a credential or
+        presentation. Based on the W3C VC HTTP API VerificationResult schema.
+      properties:
+        checks:
+          type: array
+          description: The checks that were performed
+          items:
+            type: string
+            enum:
+              - proof
+              - JWS
+              - status
+          example:
+            - proof
+        warnings:
+          type: array
+          description: Non-fatal warnings encountered during verification
+          items:
+            type: string
+          example: []
+        errors:
+          type: array
+          description: Errors encountered during verification (empty means success)
+          items:
+            type: string
+          example: []
+
+    DidDocument:
+      type: object
+      description: A W3C DID Document
+      properties:
+        '@context':
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                oneOf:
+                  - type: string
+                  - type: object
+          example:
+            - https://www.w3.org/ns/did/v1
+        id:
+          type: string
+          description: The DID this document is for
+          example: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+        verificationMethod:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+              controller:
+                type: string
+              publicKeyJwk:
+                type: object
+              publicKeyMultibase:
+                type: string
+        authentication:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: object
+        assertionMethod:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: object
+        keyAgreement:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: object
+        service:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+              serviceEndpoint:
+                oneOf:
+                  - type: string
+                  - type: object
+                  - type: array
+
+    BitstringStatusListCredential:
+      type: object
+      description: >-
+        A W3C Bitstring Status List verifiable credential for checking
+        revocation status of other credentials.
+      properties:
+        '@context':
+          type: array
+          items:
+            type: string
+          example:
+            - https://www.w3.org/2018/credentials/v1
+            - https://www.w3.org/ns/credentials/status/v1
+        id:
+          type: string
+          example: http://localhost:8080/statuslist
+        type:
+          type: array
+          items:
+            type: string
+          example:
+            - VerifiableCredential
+            - BitstringStatusListCredential
+        issuer:
+          type: string
+          example: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+        credentialSubject:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+              example: BitstringStatusList
+            statusPurpose:
+              type: string
+              enum:
+                - revocation
+                - suspension
+              example: revocation
+            encodedList:
+              type: string
+              description: Base64url-encoded compressed bitstring
+        proof:
+          $ref: '#/components/schemas/DataIntegrityProof'
+
+    Error:
+      type: object
+      description: Error response
+      properties:
+        error:
+          type: string
+          description: Error message
+        message:
+          type: string
+          description: Detailed error description
