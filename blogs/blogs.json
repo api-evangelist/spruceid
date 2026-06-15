@@ -1,6 +1,6 @@
 {
   "url": "https://blog.spruceid.com",
-  "fetched": "2026-06-14",
+  "fetched": "2026-06-14T20:42:17Z",
   "posts": [
     {
       "title": "Credential Lifecycle 101: From Issuance to Expiry, and Who Owns Each Stage",
@@ -100,5 +100,16 @@
       "category": "Digital Identity",
       "description": "Overview of a series exploring digital identity topics in America."
     }
-  ]
+  ],
+  "repo": "spruceid",
+  "feeds": [
+    {
+      "source": "https://www.sprucekit.dev/",
+      "feed_url": "https://www.sprucekit.dev/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0
 }
