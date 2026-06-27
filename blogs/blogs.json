@@ -1,108 +1,13 @@
 {
-  "url": "https://blog.spruceid.com",
-  "fetched": "2026-06-14T20:42:17Z",
-  "posts": [
-    {
-      "title": "Credential Lifecycle 101: From Issuance to Expiry, and Who Owns Each Stage",
-      "url": "https://blog.spruceid.com/digitalidentity-credential-lifecycle-101-from-issuance-to-expiry-and-who-owns-each-stage/",
-      "date": "2026-06-11",
-      "category": "Digital Identity",
-      "description": "From identity proofing to renewal, the long-term success of a verifiable digital credential program depends on clear ownership at every step."
-    },
-    {
-      "title": "What Is a Credential Format, and Why Does It Matter Which One You Choose?",
-      "url": "https://blog.spruceid.com/interoperability-what-is-a-credential-format-and-why-does-it-matter-which-one-you-choose/",
-      "date": "2026-06-10",
-      "category": "Interoperability",
-      "description": "The format of a digital credential may seem like a technical detail, but it can shape interoperability, privacy, and flexibility for years to come."
-    },
-    {
-      "title": "What Is a Presentation Request, and Who Controls What Gets Asked For?",
-      "url": "https://blog.spruceid.com/digitalidentity-what-is-a-presentation-request-and-who-controls-what-gets-asked-for/",
-      "date": "2026-06-05",
-      "category": "Digital Identity",
-      "description": "Explores how presentation request rules determine what information can be requested and resident control mechanisms."
-    },
-    {
-      "title": "What Does 'Resident-Centric' Actually Mean in a Digital Identity System?",
-      "url": "https://blog.spruceid.com/digitaltransformation-what-does-resident-centric-actually-mean-in-a-digital-identity-system/",
-      "date": "2026-06-03",
-      "category": "Digital Transformation",
-      "description": "Resident-centric digital identity is not a marketing claim, it is a set of design decisions that determine who controls data, privacy, and participation."
-    },
-    {
-      "title": "What Is the Difference Between Authentication and Identity Proofing?",
-      "url": "https://blog.spruceid.com/digitalidentity-what-is-the-difference-between-authentication-and-identity-proofing/",
-      "date": "2026-05-29",
-      "category": "Digital Identity",
-      "description": "Explains how systems must verify both identity and credential ownership before establishing trust."
-    },
-    {
-      "title": "SpruceID at the 2026 Utah Data Governance Summit",
-      "url": "https://blog.spruceid.com/spruceid-at-the-2026-utah-data-governance-summit/",
-      "date": "2026-05-27",
-      "category": "Events",
-      "description": "SpruceID demonstrated how marriage licensing can serve as a scalable digital trust model."
-    },
-    {
-      "title": "What Is a Digital Signature, and Why Does It Matter for Government Credentials?",
-      "url": "https://blog.spruceid.com/digitalidentity-what-is-a-digital-signature-and-why-does-it-matter-for-government-credentials/",
-      "date": "2026-05-21",
-      "category": "Digital Identity",
-      "description": "Explores how cryptographic signatures function similarly to physical security features in digital credentials."
-    },
-    {
-      "title": "What Does 'Open Source' Mean for a Government Digital Identity System?",
-      "url": "https://blog.spruceid.com/digitaltransformation-what-does-open-source-mean-for-a-government-digital-identity-system/",
-      "date": "2026-05-18",
-      "category": "Digital Transformation",
-      "description": "Open source increases transparency when paired with governance and long-term support structures."
-    },
-    {
-      "title": "What Is the Difference Between Remote and In-Person Identity Proofing?",
-      "url": "https://blog.spruceid.com/digitalidentity-what-is-the-difference-between-remote-and-in-person-identity-proofing/",
-      "date": "2026-05-15",
-      "category": "Digital Identity",
-      "description": "Examines how agencies decide residents will verify their identity before accessing digital services."
-    },
-    {
-      "title": "What Happens to Your Digital ID If You Lose Your Phone?",
-      "url": "https://blog.spruceid.com/digitalidentity-what-happens-to-your-digital-id-if-you-lose-your-phone/",
-      "date": "2026-05-13",
-      "category": "Digital Identity",
-      "description": "Well-designed credentials ensure phone loss doesn't result in loss of identity control."
-    },
-    {
-      "title": "How Do Verifiable Digital Credentials Support Audit and Compliance Requirements?",
-      "url": "https://blog.spruceid.com/zerotrust-how-do-verifiable-digital-credentials-support-audit-and-compliance-requirements/",
-      "date": "2026-05-11",
-      "category": "Zero Trust",
-      "description": "Credentials enable agencies to embed audit readiness into service delivery processes."
-    },
-    {
-      "title": "Portable Credentials: What the Term Means in Practice",
-      "url": "https://blog.spruceid.com/interoperability-portable-credentials-what-the-term-means-in-practice/",
-      "date": "2026-05-08",
-      "category": "Interoperability",
-      "description": "Digital identity should work across jurisdictions and boundaries to achieve practical portability."
-    },
-    {
-      "title": "SpruceID at the SEC Roundtable: Advancing Privacy-First Digital Identity",
-      "url": "https://blog.spruceid.com/spruceid-at-the-sec-roundtable-advancing-privacy-first-digital-identity/",
-      "date": "2026-05-01",
-      "category": "Events",
-      "description": "SpruceID's participation in an SEC roundtable focused on privacy-first identity solutions."
-    },
-    {
-      "title": "Digital Identity In America: Series Overview",
-      "url": "https://blog.spruceid.com/digital-identity-in-america/",
-      "date": "2026-04-01",
-      "category": "Digital Identity",
-      "description": "Overview of a series exploring digital identity topics in America."
-    }
-  ],
   "repo": "spruceid",
   "feeds": [
+    {
+      "source": "https://blog.spruceid.com/feed/",
+      "feed_url": "https://blog.spruceid.com/feed/",
+      "title": "",
+      "saved": 2,
+      "method": "feed"
+    },
     {
       "source": "https://www.sprucekit.dev/",
       "feed_url": "https://www.sprucekit.dev/",
@@ -111,5 +16,6 @@
       "method": "none"
     }
   ],
-  "post_count": 0
+  "fetched": "2026-06-27T12:03:07Z",
+  "post_count": 4
 }
