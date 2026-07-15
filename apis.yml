@@ -247,6 +247,8 @@ apis:
         value: Rust
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/spruceid-agentic-access.yml
   - type: DomainSecurity
     url: security/spruceid-domain-security.yml
   - type: Website
