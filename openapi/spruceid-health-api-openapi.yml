@@ -1,0 +1,34 @@
+openapi: 3.0.3
+info:
+  title: SpruceID DIDKit HTTP Credentials Health API
+  description: DIDKit is SpruceID's cross-platform toolkit for working with W3C Decentralized Identifiers (DIDs) and Verifiable Credentials (VCs). The DIDKit HTTP server exposes REST endpoints for issuing, presenting, and verifying verifiable credentials and verifiable presentations using standard cryptographic proofs. It implements the W3C VC API specification and supports multiple DID methods including did:key, did:web, did:ethr, and did:tz. DIDKit HTTP does not include built-in authorization and should be deployed behind a reverse proxy in production.
+  version: 1.0.0
+  contact:
+    name: SpruceID Developer Support
+    email: hello@spruceid.com
+    url: https://spruceid.dev/docs/didkit/
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  x-logo:
+    url: https://spruceid.com/favicon.ico
+servers:
+- url: http://localhost:8080
+  description: Local DIDKit HTTP server instance
+tags:
+- name: Health
+  description: Health check endpoints
+paths:
+  /healthz:
+    get:
+      summary: Health Check
+      description: Returns a 200 OK if the server is running and healthy.
+      operationId: healthCheck
+      tags:
+      - Health
+      responses:
+        '200':
+          description: Server is healthy
+externalDocs:
+  description: SpruceID DIDKit Documentation
+  url: https://spruceid.dev/docs/didkit/

@@ -1,0 +1,165 @@
+openapi: 3.0.3
+info:
+  title: SpruceID DIDKit HTTP Credentials Identifiers API
+  description: DIDKit is SpruceID's cross-platform toolkit for working with W3C Decentralized Identifiers (DIDs) and Verifiable Credentials (VCs). The DIDKit HTTP server exposes REST endpoints for issuing, presenting, and verifying verifiable credentials and verifiable presentations using standard cryptographic proofs. It implements the W3C VC API specification and supports multiple DID methods including did:key, did:web, did:ethr, and did:tz. DIDKit HTTP does not include built-in authorization and should be deployed behind a reverse proxy in production.
+  version: 1.0.0
+  contact:
+    name: SpruceID Developer Support
+    email: hello@spruceid.com
+    url: https://spruceid.dev/docs/didkit/
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  x-logo:
+    url: https://spruceid.com/favicon.ico
+servers:
+- url: http://localhost:8080
+  description: Local DIDKit HTTP server instance
+tags:
+- name: Identifiers
+  description: DID resolution implementing the W3C DID Resolution HTTP binding.
+paths:
+  /identifiers/{id}:
+    get:
+      summary: Resolve DID
+      description: Resolves a Decentralized Identifier (DID) and returns its DID Document. Implements the W3C DID Resolution HTTP binding. Supports content negotiation for DID document representation format. Use the Accept header to request a specific representation, or the application/ld+json;profile="https://w3id.org/did-resolution" media type for the full DID Resolution result including document metadata. Supported DID methods include did:key, did:web, did:ethr, and did:tz.
+      operationId: resolveDid
+      tags:
+      - Identifiers
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The URL-encoded DID or DID URL to resolve
+        schema:
+          type: string
+          example: did%3Akey%3Az6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+      - name: Accept
+        in: header
+        required: false
+        description: Content type for the response. Use application/ld+json;profile="https://w3id.org/did-resolution" for full resolution result, or application/did+json, application/did+ld+json for DID document only.
+        schema:
+          type: string
+          default: application/ld+json
+          examples:
+          - application/ld+json
+          - application/ld+json;profile="https://w3id.org/did-resolution"
+          - application/did+json
+          - application/did+ld+json
+      responses:
+        '200':
+          description: DID Document or DID Resolution Result
+          headers:
+            Content-Type:
+              description: Media type of the response
+              schema:
+                type: string
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/DidDocument'
+            application/did+json:
+              schema:
+                $ref: '#/components/schemas/DidDocument'
+            application/did+ld+json:
+              schema:
+                $ref: '#/components/schemas/DidDocument'
+        '301':
+          description: Redirect for DID URL dereference
+          headers:
+            Location:
+              description: URL to redirect to
+              schema:
+                type: string
+        '400':
+          description: Bad request - invalid DID format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: DID not found or could not be resolved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    DidDocument:
+      type: object
+      description: A W3C DID Document
+      properties:
+        '@context':
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              oneOf:
+              - type: string
+              - type: object
+          example:
+          - https://www.w3.org/ns/did/v1
+        id:
+          type: string
+          description: The DID this document is for
+          example: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+        verificationMethod:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+              controller:
+                type: string
+              publicKeyJwk:
+                type: object
+              publicKeyMultibase:
+                type: string
+        authentication:
+          type: array
+          items:
+            oneOf:
+            - type: string
+            - type: object
+        assertionMethod:
+          type: array
+          items:
+            oneOf:
+            - type: string
+            - type: object
+        keyAgreement:
+          type: array
+          items:
+            oneOf:
+            - type: string
+            - type: object
+        service:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+              serviceEndpoint:
+                oneOf:
+                - type: string
+                - type: object
+                - type: array
+    Error:
+      type: object
+      description: Error response
+      properties:
+        error:
+          type: string
+          description: Error message
+        message:
+          type: string
+          description: Detailed error description
+externalDocs:
+  description: SpruceID DIDKit Documentation
+  url: https://spruceid.dev/docs/didkit/
