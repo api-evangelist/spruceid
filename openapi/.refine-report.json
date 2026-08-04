@@ -1,0 +1,22 @@
+{
+  "provider": "spruceid",
+  "sources": [
+    "spruceid-credentials-api-openapi.yml",
+    "spruceid-health-api-openapi.yml",
+    "spruceid-identifiers-api-openapi.yml",
+    "spruceid-presentations-api-openapi.yml",
+    "spruceid-status-api-openapi.yml"
+  ],
+  "outputs": [
+    "spruceid-credentials-api-openapi.yml",
+    "spruceid-health-api-openapi.yml",
+    "spruceid-identifiers-api-openapi.yml",
+    "spruceid-presentations-api-openapi.yml",
+    "spruceid-status-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
