@@ -280,6 +280,9 @@ apis:
   - type: GitHubRepository
     url: https://github.com/spruceid/didkit-http
 common:
+  - type: License
+    name: Apache-2.0
+    url: https://github.com/spruceid/siwe/blob/main/LICENSE
   - type: AgenticAccess
     url: agentic-access/spruceid-agentic-access.yml
   - type: DomainSecurity
