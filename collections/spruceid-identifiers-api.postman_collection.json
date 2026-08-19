@@ -1,0 +1,278 @@
+{
+  "item": [
+    {
+      "id": "cc74ca89-eb4f-4ae3-a770-05026f4be653",
+      "name": "Identifiers",
+      "description": {
+        "content": "DID resolution implementing the W3C DID Resolution HTTP binding.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e1411647-bb44-4343-876c-ae5f1edafa62",
+          "name": "Resolve DID",
+          "request": {
+            "name": "Resolve DID",
+            "description": {
+              "content": "Resolves a Decentralized Identifier (DID) and returns its DID Document. Implements the W3C DID Resolution HTTP binding. Supports content negotiation for DID document representation format. Use the Accept header to request a specific representation, or the application/ld+json;profile=\"https://w3id.org/did-resolution\" media type for the full DID Resolution result including document metadata. Supported DID methods include did:key, did:web, did:ethr, and did:tz.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "identifiers",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The URL-encoded DID or DID URL to resolve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/ld+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b0adc34d-383c-40bb-863d-a5586eed661c",
+              "name": "DID Document or DID Resolution Result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "identifiers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The URL-encoded DID or DID URL to resolve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Content type for the response. Use application/ld+json;profile=\"https://w3id.org/did-resolution\" for full resolution result, or application/did+json, application/did+ld+json for DID document only.",
+                    "key": "Accept",
+                    "value": "application/ld+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/ld+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/ld+json"
+                }
+              ],
+              "body": "{\n  \"@context\": \"string\",\n  \"id\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n  \"verificationMethod\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"controller\": \"string\",\n      \"publicKeyJwk\": {},\n      \"publicKeyMultibase\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"controller\": \"string\",\n      \"publicKeyJwk\": {},\n      \"publicKeyMultibase\": \"string\"\n    }\n  ],\n  \"authentication\": [\n    \"string\",\n    \"string\"\n  ],\n  \"assertionMethod\": [\n    \"string\",\n    \"string\"\n  ],\n  \"keyAgreement\": [\n    \"string\",\n    \"string\"\n  ],\n  \"service\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"serviceEndpoint\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"serviceEndpoint\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf26021a-d1e1-42fe-9301-5350a5f6c4e5",
+              "name": "Redirect for DID URL dereference",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "identifiers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The URL-encoded DID or DID URL to resolve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Content type for the response. Use application/ld+json;profile=\"https://w3id.org/did-resolution\" for full resolution result, or application/did+json, application/did+ld+json for DID document only.",
+                    "key": "Accept",
+                    "value": "application/ld+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Moved Permanently",
+              "code": 301,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "URL to redirect to",
+                  "key": "Location",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7beb5dc4-2b19-4808-b9c9-7ae119d35cff",
+              "name": "Bad request - invalid DID format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "identifiers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The URL-encoded DID or DID URL to resolve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Content type for the response. Use application/ld+json;profile=\"https://w3id.org/did-resolution\" for full resolution result, or application/did+json, application/did+ld+json for DID document only.",
+                    "key": "Accept",
+                    "value": "application/ld+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b0cd1fe-1a03-44e1-9208-da163cab6921",
+              "name": "DID not found or could not be resolved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "identifiers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The URL-encoded DID or DID URL to resolve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Content type for the response. Use application/ld+json;profile=\"https://w3id.org/did-resolution\" for full resolution result, or application/did+json, application/did+ld+json for DID document only.",
+                    "key": "Accept",
+                    "value": "application/ld+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8080",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cea2043d-4f6f-425f-b358-66c52d9fcc67",
+    "name": "SpruceID DIDKit HTTP Credentials Identifiers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "DIDKit is SpruceID's cross-platform toolkit for working with W3C Decentralized Identifiers (DIDs) and Verifiable Credentials (VCs). The DIDKit HTTP server exposes REST endpoints for issuing, presenting, and verifying verifiable credentials and verifiable presentations using standard cryptographic proofs. It implements the W3C VC API specification and supports multiple DID methods including did:key, did:web, did:ethr, and did:tz. DIDKit HTTP does not include built-in authorization and should be deployed behind a reverse proxy in production.\n\nContact Support:\n Name: SpruceID Developer Support\n Email: hello@spruceid.com",
+      "type": "text/plain"
+    }
+  }
+}

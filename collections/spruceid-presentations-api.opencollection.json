@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpruceID DIDKit HTTP Credentials Presentations API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Presentations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Issue Verifiable Presentation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/presentations/issue",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Issues a W3C Verifiable Presentation by adding a cryptographic proof. The presentation must include a holder DID. Supports Data Integrity proofs (LDP) and JSON Web Token (JWT) proof formats."
+        },
+        {
+          "info": {
+            "name": "Issue Verifiable Presentation (legacy path)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/issue/presentations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Legacy VC HTTP API 0.0.1 path for issuing verifiable presentations. Identical functionality to POST /presentations/issue."
+        },
+        {
+          "info": {
+            "name": "Verify Verifiable Presentation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/presentations/verify",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verifies a W3C Verifiable Presentation by checking its cryptographic proof and optionally the credentials it contains."
+        },
+        {
+          "info": {
+            "name": "Verify Verifiable Presentation (legacy path)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/verify/presentations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Legacy VC HTTP API 0.0.1 path for verifying verifiable presentations. Identical functionality to POST /presentations/verify."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

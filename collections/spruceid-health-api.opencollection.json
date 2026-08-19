@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpruceID DIDKit HTTP Credentials Health API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Health",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Health Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/healthz"
+          },
+          "docs": "Returns a 200 OK if the server is running and healthy."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

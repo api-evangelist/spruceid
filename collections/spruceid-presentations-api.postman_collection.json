@@ -1,0 +1,624 @@
+{
+  "item": [
+    {
+      "id": "b0e8a241-b5e9-45a2-9279-96432152c672",
+      "name": "Presentations",
+      "description": {
+        "content": "Issue and verify W3C Verifiable Presentations. Supports both legacy (/issue/presentations, /verify/presentations) and current (/presentations/issue, /presentations/verify) path styles.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9a7b6e0c-5be9-4ca8-8b91-9bf33cb1bd23",
+          "name": "Issue Verifiable Presentation",
+          "request": {
+            "name": "Issue Verifiable Presentation",
+            "description": {
+              "content": "Issues a W3C Verifiable Presentation by adding a cryptographic proof. The presentation must include a holder DID. Supports Data Integrity proofs (LDP) and JSON Web Token (JWT) proof formats.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "presentations",
+                "issue"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"presentation\": {\n    \"@context\": \"<string>\",\n    \"type\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"holder\": \"<string>\",\n    \"verifiableCredential\": {\n      \"@context\": \"<string>\",\n      \"type\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"issuer\": \"<string>\",\n      \"credentialSubject\": \"<object>\",\n      \"id\": \"<uri>\",\n      \"issuanceDate\": \"<dateTime>\",\n      \"validFrom\": \"<dateTime>\",\n      \"expirationDate\": \"<dateTime>\",\n      \"credentialStatus\": {\n        \"id\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      \"proof\": {\n        \"type\": \"<string>\",\n        \"cryptosuite\": \"<string>\",\n        \"created\": \"<dateTime>\",\n        \"verificationMethod\": \"<string>\",\n        \"proofPurpose\": \"<string>\",\n        \"proofValue\": \"<string>\",\n        \"previousProof\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"proof\": {\n      \"type\": \"<string>\",\n      \"cryptosuite\": \"<string>\",\n      \"created\": \"<dateTime>\",\n      \"verificationMethod\": \"<string>\",\n      \"proofPurpose\": \"<string>\",\n      \"proofValue\": \"<string>\",\n      \"previousProof\": \"<string>\",\n      \"id\": \"<string>\"\n    }\n  },\n  \"options\": {\n    \"proofFormat\": \"ldp\",\n    \"verificationMethod\": \"<string>\",\n    \"proofPurpose\": \"<string>\",\n    \"cryptosuite\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4c2e2c5e-657c-4042-bcbb-5b455de2f86a",
+              "name": "Verifiable Presentation issued successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "presentations",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"presentation\": {\n    \"@context\": [\n      \"https://www.w3.org/2018/credentials/v1\"\n    ],\n    \"type\": [\n      \"VerifiablePresentation\"\n    ],\n    \"holder\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n    \"verifiableCredential\": [\n      {\n        \"@context\": [\n          \"https://www.w3.org/2018/credentials/v1\"\n        ],\n        \"type\": [\n          \"VerifiableCredential\"\n        ],\n        \"issuer\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n        \"issuanceDate\": \"2020-03-16T22:37:26.544Z\",\n        \"credentialSubject\": {\n          \"id\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\"\n        },\n        \"proof\": {\n          \"type\": \"DataIntegrityProof\",\n          \"proofPurpose\": \"assertionMethod\",\n          \"proofValue\": \"z4WrjAqr...\"\n        }\n      }\n    ]\n  },\n  \"options\": {\n    \"proofFormat\": \"ldp\",\n    \"proofPurpose\": \"authentication\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"verifiablePresentation\": {\n    \"@context\": \"<string>\",\n    \"type\": [\n      \"VerifiablePresentation\"\n    ],\n    \"holder\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n    \"verifiableCredential\": {\n      \"@context\": \"<string>\",\n      \"type\": [\n        \"VerifiableCredential\"\n      ],\n      \"issuer\": \"<string>\",\n      \"credentialSubject\": \"<object>\",\n      \"id\": \"urn:uuid:86294362-4254-4f36-854f-3952fe42555d\",\n      \"issuanceDate\": \"2020-03-16T22:37:26.544Z\",\n      \"validFrom\": \"<dateTime>\",\n      \"expirationDate\": \"<dateTime>\",\n      \"credentialStatus\": {\n        \"id\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      \"proof\": {\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"cryptosuite\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"created\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"verificationMethod\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"proofPurpose\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"proofValue\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"previousProof\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"proof\": {\n      \"type\": \"DataIntegrityProof\",\n      \"cryptosuite\": \"eddsa-rdfc-2022\",\n      \"created\": \"2024-11-05T19:11:37Z\",\n      \"verificationMethod\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n      \"proofPurpose\": \"assertionMethod\",\n      \"proofValue\": \"z4WrjAqrwg92y1RR8S63rav19ZmYWx6Vs1HBcPJgXnCiEfef4i1NqKG7jMyM2DtNdMXvACudKcra92VPxW9hfatbZ\",\n      \"previousProof\": \"<string>\",\n      \"id\": \"<string>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0268f8f4-1b06-4683-bc4f-507ebc00c356",
+              "name": "Bad request - missing holder or invalid options",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "presentations",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"presentation\": {\n    \"@context\": [\n      \"https://www.w3.org/2018/credentials/v1\"\n    ],\n    \"type\": [\n      \"VerifiablePresentation\"\n    ],\n    \"holder\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n    \"verifiableCredential\": [\n      {\n        \"@context\": [\n          \"https://www.w3.org/2018/credentials/v1\"\n        ],\n        \"type\": [\n          \"VerifiableCredential\"\n        ],\n        \"issuer\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n        \"issuanceDate\": \"2020-03-16T22:37:26.544Z\",\n        \"credentialSubject\": {\n          \"id\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\"\n        },\n        \"proof\": {\n          \"type\": \"DataIntegrityProof\",\n          \"proofPurpose\": \"assertionMethod\",\n          \"proofValue\": \"z4WrjAqr...\"\n        }\n      }\n    ]\n  },\n  \"options\": {\n    \"proofFormat\": \"ldp\",\n    \"proofPurpose\": \"authentication\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6653344d-6993-4e2f-ba71-97047e60da8a",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "presentations",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"presentation\": {\n    \"@context\": [\n      \"https://www.w3.org/2018/credentials/v1\"\n    ],\n    \"type\": [\n      \"VerifiablePresentation\"\n    ],\n    \"holder\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n    \"verifiableCredential\": [\n      {\n        \"@context\": [\n          \"https://www.w3.org/2018/credentials/v1\"\n        ],\n        \"type\": [\n          \"VerifiableCredential\"\n        ],\n        \"issuer\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n        \"issuanceDate\": \"2020-03-16T22:37:26.544Z\",\n        \"credentialSubject\": {\n          \"id\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\"\n        },\n        \"proof\": {\n          \"type\": \"DataIntegrityProof\",\n          \"proofPurpose\": \"assertionMethod\",\n          \"proofValue\": \"z4WrjAqr...\"\n        }\n      }\n    ]\n  },\n  \"options\": {\n    \"proofFormat\": \"ldp\",\n    \"proofPurpose\": \"authentication\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae2ef6a7-cd36-48e1-a902-2dac01d0cb15",
+          "name": "Issue Verifiable Presentation (legacy path)",
+          "request": {
+            "name": "Issue Verifiable Presentation (legacy path)",
+            "description": {
+              "content": "Legacy VC HTTP API 0.0.1 path for issuing verifiable presentations. Identical functionality to POST /presentations/issue.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "issue",
+                "presentations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"presentation\": {\n    \"@context\": \"<string>\",\n    \"type\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"holder\": \"<string>\",\n    \"verifiableCredential\": {\n      \"@context\": \"<string>\",\n      \"type\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"issuer\": \"<string>\",\n      \"credentialSubject\": \"<object>\",\n      \"id\": \"<uri>\",\n      \"issuanceDate\": \"<dateTime>\",\n      \"validFrom\": \"<dateTime>\",\n      \"expirationDate\": \"<dateTime>\",\n      \"credentialStatus\": {\n        \"id\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      \"proof\": {\n        \"type\": \"<string>\",\n        \"cryptosuite\": \"<string>\",\n        \"created\": \"<dateTime>\",\n        \"verificationMethod\": \"<string>\",\n        \"proofPurpose\": \"<string>\",\n        \"proofValue\": \"<string>\",\n        \"previousProof\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"proof\": {\n      \"type\": \"<string>\",\n      \"cryptosuite\": \"<string>\",\n      \"created\": \"<dateTime>\",\n      \"verificationMethod\": \"<string>\",\n      \"proofPurpose\": \"<string>\",\n      \"proofValue\": \"<string>\",\n      \"previousProof\": \"<string>\",\n      \"id\": \"<string>\"\n    }\n  },\n  \"options\": {\n    \"proofFormat\": \"ldp\",\n    \"verificationMethod\": \"<string>\",\n    \"proofPurpose\": \"<string>\",\n    \"cryptosuite\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7543f520-c410-4425-bf7d-40b034c47684",
+              "name": "Verifiable Presentation issued successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "issue",
+                    "presentations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"presentation\": {\n    \"@context\": \"<string>\",\n    \"type\": [\n      \"VerifiablePresentation\"\n    ],\n    \"holder\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n    \"verifiableCredential\": {\n      \"@context\": \"<string>\",\n      \"type\": [\n        \"VerifiableCredential\"\n      ],\n      \"issuer\": \"<string>\",\n      \"credentialSubject\": \"<object>\",\n      \"id\": \"urn:uuid:86294362-4254-4f36-854f-3952fe42555d\",\n      \"issuanceDate\": \"2020-03-16T22:37:26.544Z\",\n      \"validFrom\": \"<dateTime>\",\n      \"expirationDate\": \"<dateTime>\",\n      \"credentialStatus\": {\n        \"id\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      \"proof\": {\n        \"type\": \"DataIntegrityProof\",\n        \"cryptosuite\": \"eddsa-rdfc-2022\",\n        \"created\": \"2024-11-05T19:11:37Z\",\n        \"verificationMethod\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n        \"proofPurpose\": \"assertionMethod\",\n        \"proofValue\": \"z4WrjAqrwg92y1RR8S63rav19ZmYWx6Vs1HBcPJgXnCiEfef4i1NqKG7jMyM2DtNdMXvACudKcra92VPxW9hfatbZ\",\n        \"previousProof\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"proof\": {\n      \"type\": \"DataIntegrityProof\",\n      \"cryptosuite\": \"eddsa-rdfc-2022\",\n      \"created\": \"2024-11-05T19:11:37Z\",\n      \"verificationMethod\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n      \"proofPurpose\": \"assertionMethod\",\n      \"proofValue\": \"z4WrjAqrwg92y1RR8S63rav19ZmYWx6Vs1HBcPJgXnCiEfef4i1NqKG7jMyM2DtNdMXvACudKcra92VPxW9hfatbZ\",\n      \"previousProof\": \"<string>\",\n      \"id\": \"<string>\"\n    }\n  },\n  \"options\": {\n    \"proofFormat\": \"ldp\",\n    \"verificationMethod\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n    \"proofPurpose\": \"assertionMethod\",\n    \"cryptosuite\": \"eddsa-rdfc-2022\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"verifiablePresentation\": {\n    \"@context\": \"<string>\",\n    \"type\": [\n      \"VerifiablePresentation\"\n    ],\n    \"holder\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n    \"verifiableCredential\": {\n      \"@context\": \"<string>\",\n      \"type\": [\n        \"VerifiableCredential\"\n      ],\n      \"issuer\": \"<string>\",\n      \"credentialSubject\": \"<object>\",\n      \"id\": \"urn:uuid:86294362-4254-4f36-854f-3952fe42555d\",\n      \"issuanceDate\": \"2020-03-16T22:37:26.544Z\",\n      \"validFrom\": \"<dateTime>\",\n      \"expirationDate\": \"<dateTime>\",\n      \"credentialStatus\": {\n        \"id\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      \"proof\": {\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"cryptosuite\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"created\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"verificationMethod\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"proofPurpose\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"proofValue\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"previousProof\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"proof\": {\n      \"type\": \"DataIntegrityProof\",\n      \"cryptosuite\": \"eddsa-rdfc-2022\",\n      \"created\": \"2024-11-05T19:11:37Z\",\n      \"verificationMethod\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n      \"proofPurpose\": \"assertionMethod\",\n      \"proofValue\": \"z4WrjAqrwg92y1RR8S63rav19ZmYWx6Vs1HBcPJgXnCiEfef4i1NqKG7jMyM2DtNdMXvACudKcra92VPxW9hfatbZ\",\n      \"previousProof\": \"<string>\",\n      \"id\": \"<string>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2e3aa0f-0742-4c7e-b578-98198f21aa08",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "issue",
+                    "presentations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"presentation\": {\n    \"@context\": \"<string>\",\n    \"type\": [\n      \"VerifiablePresentation\"\n    ],\n    \"holder\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n    \"verifiableCredential\": {\n      \"@context\": \"<string>\",\n      \"type\": [\n        \"VerifiableCredential\"\n      ],\n      \"issuer\": \"<string>\",\n      \"credentialSubject\": \"<object>\",\n      \"id\": \"urn:uuid:86294362-4254-4f36-854f-3952fe42555d\",\n      \"issuanceDate\": \"2020-03-16T22:37:26.544Z\",\n      \"validFrom\": \"<dateTime>\",\n      \"expirationDate\": \"<dateTime>\",\n      \"credentialStatus\": {\n        \"id\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      \"proof\": {\n        \"type\": \"DataIntegrityProof\",\n        \"cryptosuite\": \"eddsa-rdfc-2022\",\n        \"created\": \"2024-11-05T19:11:37Z\",\n        \"verificationMethod\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n        \"proofPurpose\": \"assertionMethod\",\n        \"proofValue\": \"z4WrjAqrwg92y1RR8S63rav19ZmYWx6Vs1HBcPJgXnCiEfef4i1NqKG7jMyM2DtNdMXvACudKcra92VPxW9hfatbZ\",\n        \"previousProof\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"proof\": {\n      \"type\": \"DataIntegrityProof\",\n      \"cryptosuite\": \"eddsa-rdfc-2022\",\n      \"created\": \"2024-11-05T19:11:37Z\",\n      \"verificationMethod\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n      \"proofPurpose\": \"assertionMethod\",\n      \"proofValue\": \"z4WrjAqrwg92y1RR8S63rav19ZmYWx6Vs1HBcPJgXnCiEfef4i1NqKG7jMyM2DtNdMXvACudKcra92VPxW9hfatbZ\",\n      \"previousProof\": \"<string>\",\n      \"id\": \"<string>\"\n    }\n  },\n  \"options\": {\n    \"proofFormat\": \"ldp\",\n    \"verificationMethod\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n    \"proofPurpose\": \"assertionMethod\",\n    \"cryptosuite\": \"eddsa-rdfc-2022\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd8cc6f1-7448-4f3e-b327-76d97828687f",
+          "name": "Verify Verifiable Presentation",
+          "request": {
+            "name": "Verify Verifiable Presentation",
+            "description": {
+              "content": "Verifies a W3C Verifiable Presentation by checking its cryptographic proof and optionally the credentials it contains.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "presentations",
+                "verify"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"verifiablePresentation\": {\n    \"@context\": \"<string>\",\n    \"type\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"holder\": \"<string>\",\n    \"verifiableCredential\": {\n      \"@context\": \"<string>\",\n      \"type\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"issuer\": \"<string>\",\n      \"credentialSubject\": \"<object>\",\n      \"id\": \"<uri>\",\n      \"issuanceDate\": \"<dateTime>\",\n      \"validFrom\": \"<dateTime>\",\n      \"expirationDate\": \"<dateTime>\",\n      \"credentialStatus\": {\n        \"id\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      \"proof\": {\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"cryptosuite\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"created\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"verificationMethod\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"proofPurpose\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"proofValue\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"previousProof\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"proof\": {\n      \"type\": \"<string>\",\n      \"cryptosuite\": \"<string>\",\n      \"created\": \"<dateTime>\",\n      \"verificationMethod\": \"<string>\",\n      \"proofPurpose\": \"<string>\",\n      \"proofValue\": \"<string>\",\n      \"previousProof\": \"<string>\",\n      \"id\": \"<string>\"\n    }\n  },\n  \"options\": {\n    \"proofPurpose\": \"<string>\",\n    \"verificationMethod\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "074a3810-0d0f-4d73-9147-c5b47c842825",
+              "name": "Verification result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "presentations",
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"verifiablePresentation\": {\n    \"@context\": \"<string>\",\n    \"type\": [\n      \"VerifiablePresentation\"\n    ],\n    \"holder\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n    \"verifiableCredential\": {\n      \"@context\": \"<string>\",\n      \"type\": [\n        \"VerifiableCredential\"\n      ],\n      \"issuer\": \"<string>\",\n      \"credentialSubject\": \"<object>\",\n      \"id\": \"urn:uuid:86294362-4254-4f36-854f-3952fe42555d\",\n      \"issuanceDate\": \"2020-03-16T22:37:26.544Z\",\n      \"validFrom\": \"<dateTime>\",\n      \"expirationDate\": \"<dateTime>\",\n      \"credentialStatus\": {\n        \"id\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      \"proof\": {\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"cryptosuite\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"created\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"verificationMethod\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"proofPurpose\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"proofValue\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"previousProof\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"proof\": {\n      \"type\": \"DataIntegrityProof\",\n      \"cryptosuite\": \"eddsa-rdfc-2022\",\n      \"created\": \"2024-11-05T19:11:37Z\",\n      \"verificationMethod\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n      \"proofPurpose\": \"assertionMethod\",\n      \"proofValue\": \"z4WrjAqrwg92y1RR8S63rav19ZmYWx6Vs1HBcPJgXnCiEfef4i1NqKG7jMyM2DtNdMXvACudKcra92VPxW9hfatbZ\",\n      \"previousProof\": \"<string>\",\n      \"id\": \"<string>\"\n    }\n  },\n  \"options\": {\n    \"proofPurpose\": \"<string>\",\n    \"verificationMethod\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"checks\": [\n    \"proof\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "851224bb-a32f-443f-8390-bbe0382903cc",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "presentations",
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"verifiablePresentation\": {\n    \"@context\": \"<string>\",\n    \"type\": [\n      \"VerifiablePresentation\"\n    ],\n    \"holder\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n    \"verifiableCredential\": {\n      \"@context\": \"<string>\",\n      \"type\": [\n        \"VerifiableCredential\"\n      ],\n      \"issuer\": \"<string>\",\n      \"credentialSubject\": \"<object>\",\n      \"id\": \"urn:uuid:86294362-4254-4f36-854f-3952fe42555d\",\n      \"issuanceDate\": \"2020-03-16T22:37:26.544Z\",\n      \"validFrom\": \"<dateTime>\",\n      \"expirationDate\": \"<dateTime>\",\n      \"credentialStatus\": {\n        \"id\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      \"proof\": {\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"cryptosuite\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"created\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"verificationMethod\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"proofPurpose\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"proofValue\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"previousProof\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"proof\": {\n      \"type\": \"DataIntegrityProof\",\n      \"cryptosuite\": \"eddsa-rdfc-2022\",\n      \"created\": \"2024-11-05T19:11:37Z\",\n      \"verificationMethod\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n      \"proofPurpose\": \"assertionMethod\",\n      \"proofValue\": \"z4WrjAqrwg92y1RR8S63rav19ZmYWx6Vs1HBcPJgXnCiEfef4i1NqKG7jMyM2DtNdMXvACudKcra92VPxW9hfatbZ\",\n      \"previousProof\": \"<string>\",\n      \"id\": \"<string>\"\n    }\n  },\n  \"options\": {\n    \"proofPurpose\": \"<string>\",\n    \"verificationMethod\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f4bde981-d452-41d4-9a9d-26da6303a3f7",
+          "name": "Verify Verifiable Presentation (legacy path)",
+          "request": {
+            "name": "Verify Verifiable Presentation (legacy path)",
+            "description": {
+              "content": "Legacy VC HTTP API 0.0.1 path for verifying verifiable presentations. Identical functionality to POST /presentations/verify.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "verify",
+                "presentations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"verifiablePresentation\": {\n    \"@context\": \"<string>\",\n    \"type\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"holder\": \"<string>\",\n    \"verifiableCredential\": {\n      \"@context\": \"<string>\",\n      \"type\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"issuer\": \"<string>\",\n      \"credentialSubject\": \"<object>\",\n      \"id\": \"<uri>\",\n      \"issuanceDate\": \"<dateTime>\",\n      \"validFrom\": \"<dateTime>\",\n      \"expirationDate\": \"<dateTime>\",\n      \"credentialStatus\": {\n        \"id\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      \"proof\": {\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"cryptosuite\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"created\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"verificationMethod\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"proofPurpose\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"proofValue\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"previousProof\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"proof\": {\n      \"type\": \"<string>\",\n      \"cryptosuite\": \"<string>\",\n      \"created\": \"<dateTime>\",\n      \"verificationMethod\": \"<string>\",\n      \"proofPurpose\": \"<string>\",\n      \"proofValue\": \"<string>\",\n      \"previousProof\": \"<string>\",\n      \"id\": \"<string>\"\n    }\n  },\n  \"options\": {\n    \"proofPurpose\": \"<string>\",\n    \"verificationMethod\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4f99060a-ccce-4022-b5f4-8f1c37e76c2a",
+              "name": "Verification result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "verify",
+                    "presentations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"verifiablePresentation\": {\n    \"@context\": \"<string>\",\n    \"type\": [\n      \"VerifiablePresentation\"\n    ],\n    \"holder\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n    \"verifiableCredential\": {\n      \"@context\": \"<string>\",\n      \"type\": [\n        \"VerifiableCredential\"\n      ],\n      \"issuer\": \"<string>\",\n      \"credentialSubject\": \"<object>\",\n      \"id\": \"urn:uuid:86294362-4254-4f36-854f-3952fe42555d\",\n      \"issuanceDate\": \"2020-03-16T22:37:26.544Z\",\n      \"validFrom\": \"<dateTime>\",\n      \"expirationDate\": \"<dateTime>\",\n      \"credentialStatus\": {\n        \"id\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      \"proof\": {\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"cryptosuite\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"created\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"verificationMethod\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"proofPurpose\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"proofValue\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"previousProof\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"proof\": {\n      \"type\": \"DataIntegrityProof\",\n      \"cryptosuite\": \"eddsa-rdfc-2022\",\n      \"created\": \"2024-11-05T19:11:37Z\",\n      \"verificationMethod\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n      \"proofPurpose\": \"assertionMethod\",\n      \"proofValue\": \"z4WrjAqrwg92y1RR8S63rav19ZmYWx6Vs1HBcPJgXnCiEfef4i1NqKG7jMyM2DtNdMXvACudKcra92VPxW9hfatbZ\",\n      \"previousProof\": \"<string>\",\n      \"id\": \"<string>\"\n    }\n  },\n  \"options\": {\n    \"proofPurpose\": \"<string>\",\n    \"verificationMethod\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"checks\": [\n    \"proof\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f82b7abb-2176-453b-b69b-ab3f477e705e",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "verify",
+                    "presentations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"verifiablePresentation\": {\n    \"@context\": \"<string>\",\n    \"type\": [\n      \"VerifiablePresentation\"\n    ],\n    \"holder\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n    \"verifiableCredential\": {\n      \"@context\": \"<string>\",\n      \"type\": [\n        \"VerifiableCredential\"\n      ],\n      \"issuer\": \"<string>\",\n      \"credentialSubject\": \"<object>\",\n      \"id\": \"urn:uuid:86294362-4254-4f36-854f-3952fe42555d\",\n      \"issuanceDate\": \"2020-03-16T22:37:26.544Z\",\n      \"validFrom\": \"<dateTime>\",\n      \"expirationDate\": \"<dateTime>\",\n      \"credentialStatus\": {\n        \"id\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      \"proof\": {\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"cryptosuite\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"created\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"verificationMethod\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"proofPurpose\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"proofValue\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"previousProof\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"proof\": {\n      \"type\": \"DataIntegrityProof\",\n      \"cryptosuite\": \"eddsa-rdfc-2022\",\n      \"created\": \"2024-11-05T19:11:37Z\",\n      \"verificationMethod\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n      \"proofPurpose\": \"assertionMethod\",\n      \"proofValue\": \"z4WrjAqrwg92y1RR8S63rav19ZmYWx6Vs1HBcPJgXnCiEfef4i1NqKG7jMyM2DtNdMXvACudKcra92VPxW9hfatbZ\",\n      \"previousProof\": \"<string>\",\n      \"id\": \"<string>\"\n    }\n  },\n  \"options\": {\n    \"proofPurpose\": \"<string>\",\n    \"verificationMethod\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8080",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2f6c40a9-048e-4760-a8c2-48c821442e36",
+    "name": "SpruceID DIDKit HTTP Credentials Presentations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "DIDKit is SpruceID's cross-platform toolkit for working with W3C Decentralized Identifiers (DIDs) and Verifiable Credentials (VCs). The DIDKit HTTP server exposes REST endpoints for issuing, presenting, and verifying verifiable credentials and verifiable presentations using standard cryptographic proofs. It implements the W3C VC API specification and supports multiple DID methods including did:key, did:web, did:ethr, and did:tz. DIDKit HTTP does not include built-in authorization and should be deployed behind a reverse proxy in production.\n\nContact Support:\n Name: SpruceID Developer Support\n Email: hello@spruceid.com",
+      "type": "text/plain"
+    }
+  }
+}

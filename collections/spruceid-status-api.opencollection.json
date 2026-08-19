@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpruceID DIDKit HTTP Credentials Status API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Bitstring Status List Credential",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/statuslist"
+          },
+          "docs": "Returns a W3C Bitstring Status List verifiable credential that can be used to check the revocation status of credentials issued by this server. The status list encodes credential status as a compressed bitstring. Each credential references a position in this list via a BitstringStatusListEntry credentialStatus property."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

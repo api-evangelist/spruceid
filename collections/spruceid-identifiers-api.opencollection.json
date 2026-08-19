@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpruceID DIDKit HTTP Credentials Identifiers API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Identifiers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Resolve DID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/identifiers/:id",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The URL-encoded DID or DID URL to resolve"
+              }
+            ]
+          },
+          "docs": "Resolves a Decentralized Identifier (DID) and returns its DID Document. Implements the W3C DID Resolution HTTP binding. Supports content negotiation for DID document representation format. Use the Accept header to request a specific representation, or the application/ld+json;profile=\"https://w3id.org/did-resolution\" media type for the full DID Resolution result including document metadata. Supported DID methods include did:key, did:web, did:ethr, and did:tz."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

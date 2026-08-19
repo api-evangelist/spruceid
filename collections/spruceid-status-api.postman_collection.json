@@ -1,0 +1,137 @@
+{
+  "item": [
+    {
+      "id": "2b24f9ba-14c8-4f65-9e0c-f3477d485a53",
+      "name": "Status",
+      "description": {
+        "content": "Bitstring Status List credential endpoint for credential revocation status.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f12ebadb-861f-4f2b-9d3d-ee91b062cc43",
+          "name": "Get Bitstring Status List Credential",
+          "request": {
+            "name": "Get Bitstring Status List Credential",
+            "description": {
+              "content": "Returns a W3C Bitstring Status List verifiable credential that can be used to check the revocation status of credentials issued by this server. The status list encodes credential status as a compressed bitstring. Each credential references a position in this list via a BitstringStatusListEntry credentialStatus property.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "statuslist"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6020d984-6eab-4c83-b465-4635341fb02e",
+              "name": "Bitstring Status List Verifiable Credential",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "statuslist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@context\": [\n    \"https://www.w3.org/2018/credentials/v1\",\n    \"https://www.w3.org/ns/credentials/status/v1\"\n  ],\n  \"id\": \"http://localhost:8080/statuslist\",\n  \"type\": [\n    \"VerifiableCredential\",\n    \"BitstringStatusListCredential\"\n  ],\n  \"issuer\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n  \"credentialSubject\": {\n    \"id\": \"string\",\n    \"type\": \"BitstringStatusList\",\n    \"statusPurpose\": \"revocation\",\n    \"encodedList\": \"string\"\n  },\n  \"proof\": {\n    \"type\": \"DataIntegrityProof\",\n    \"cryptosuite\": \"eddsa-rdfc-2022\",\n    \"created\": \"2024-11-05T19:11:37Z\",\n    \"verificationMethod\": \"did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b\",\n    \"proofPurpose\": \"assertionMethod\",\n    \"proofValue\": \"z4WrjAqrwg92y1RR8S63rav19ZmYWx6Vs1HBcPJgXnCiEfef4i1NqKG7jMyM2DtNdMXvACudKcra92VPxW9hfatbZ\",\n    \"previousProof\": \"string\",\n    \"id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a65b743d-9f27-4810-bcc4-5d7e24c5fdac",
+              "name": "Internal server error - missing signing key or configuration error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "statuslist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8080",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4a5e3cd5-3ab5-47bc-9282-b40eb9fe89e3",
+    "name": "SpruceID DIDKit HTTP Credentials Status API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "DIDKit is SpruceID's cross-platform toolkit for working with W3C Decentralized Identifiers (DIDs) and Verifiable Credentials (VCs). The DIDKit HTTP server exposes REST endpoints for issuing, presenting, and verifying verifiable credentials and verifiable presentations using standard cryptographic proofs. It implements the W3C VC API specification and supports multiple DID methods including did:key, did:web, did:ethr, and did:tz. DIDKit HTTP does not include built-in authorization and should be deployed behind a reverse proxy in production.\n\nContact Support:\n Name: SpruceID Developer Support\n Email: hello@spruceid.com",
+      "type": "text/plain"
+    }
+  }
+}
