@@ -121,6 +121,13 @@ apis:
   - OID4VCI
   - OpenID Connect
   - Verifiable Credentials
+  - MDL
+  - Authentication
+  tags_raw:
+  - Credential Issuance
+  - OID4VCI
+  - OpenID Connect
+  - Verifiable Credentials
   - mDL
   - OAuth 2.0
   properties:
@@ -155,6 +162,13 @@ apis:
   - OID4VP
   - OpenID Connect
   - Verifiable Presentations
+  - MDL
+  - Privacy-Preserving
+  tags_raw:
+  - Credential Verification
+  - OID4VP
+  - OpenID Connect
+  - Verifiable Presentations
   - mDL
   - Privacy-Preserving
   properties:
@@ -184,6 +198,12 @@ apis:
   humanURL: https://github.com/spruceid/isomdl
   baseURL: https://crates.io/crates/isomdl
   tags:
+  - Mobile Driver's License
+  - MDL
+  - ISO 18013-5
+  - Government Identity
+  - Offline Verification
+  tags_raw:
   - Mobile Driver's License
   - mDL
   - ISO 18013-5
