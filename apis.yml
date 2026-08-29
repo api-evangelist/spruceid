@@ -9,6 +9,19 @@ description: >-
   (mDL). SpruceID's SpruceKit toolkit enables developers to build wallet apps,
   credential issuers, and verifier integrations using standards-based identity
   protocols.
+deliveryModel:
+  model: self-hosted
+  license: Apache-2.0
+  open_source: true
+  commercial: false
+  callable_host: false
+  label: Self-hosted open source · you run it yourself
+  confidence: high
+  source:
+  - license
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: unknown
@@ -300,6 +313,10 @@ apis:
   - type: GitHubRepository
     url: https://github.com/spruceid/didkit-http
 common:
+  - type: IssueTracker
+    url: https://github.com/spruceid/siwe/issues
+  - type: Releases
+    url: https://github.com/spruceid/siwe/releases
   - type: License
     name: Apache-2.0
     url: https://github.com/spruceid/siwe/blob/main/LICENSE
