@@ -134,7 +134,7 @@ apis:
   - OID4VCI
   - OpenID Connect
   - Verifiable Credentials
-  - MDL
+  - mDL
   - Authentication
   tags_raw:
   - Credential Issuance
@@ -175,7 +175,7 @@ apis:
   - OID4VP
   - OpenID Connect
   - Verifiable Presentations
-  - MDL
+  - mDL
   - Privacy-Preserving
   tags_raw:
   - Credential Verification
@@ -212,7 +212,7 @@ apis:
   baseURL: https://crates.io/crates/isomdl
   tags:
   - Mobile Driver's License
-  - MDL
+  - mDL
   - ISO 18013-5
   - Government Identity
   - Offline Verification
