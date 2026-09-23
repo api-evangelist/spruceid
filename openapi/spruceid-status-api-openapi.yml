@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: SpruceID DIDKit HTTP Credentials Status API
-  description: DIDKit is SpruceID's cross-platform toolkit for working with W3C Decentralized Identifiers (DIDs) and Verifiable Credentials (VCs). The DIDKit HTTP server exposes REST endpoints for issuing, presenting, and verifying verifiable credentials and verifiable presentations using standard cryptographic proofs. It implements the W3C VC API specification and supports multiple DID methods including did:key, did:web, did:ethr, and did:tz. DIDKit HTTP does not include built-in authorization and should be deployed behind a reverse proxy in production.
+  title: SpruceID DIDKit HTTP Status API
+  description: DIDKit is SpruceID's cross-platform toolkit for working with W3C Decentralized Identifiers (DIDs) and Verifiable Credentials (VCs).
   version: 1.0.0
   contact:
     name: SpruceID Developer Support
@@ -41,41 +41,16 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    DataIntegrityProof:
+    Error:
       type: object
-      description: A W3C Data Integrity cryptographic proof
+      description: Error response
       properties:
-        type:
+        error:
           type: string
-          description: Proof type (e.g. DataIntegrityProof, Ed25519Signature2020)
-          example: DataIntegrityProof
-        cryptosuite:
+          description: Error message
+        message:
           type: string
-          description: The cryptographic suite used
-          example: eddsa-rdfc-2022
-        created:
-          type: string
-          format: date-time
-          description: When the proof was created
-          example: '2024-11-05T19:11:37Z'
-        verificationMethod:
-          type: string
-          description: DID URL of the verification method
-          example: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
-        proofPurpose:
-          type: string
-          description: The purpose of this proof
-          example: assertionMethod
-        proofValue:
-          type: string
-          description: The base58-btc encoded proof value
-          example: z4WrjAqrwg92y1RR8S63rav19ZmYWx6Vs1HBcPJgXnCiEfef4i1NqKG7jMyM2DtNdMXvACudKcra92VPxW9hfatbZ
-        previousProof:
-          type: string
-          description: ID of a previous proof this proof covers (for multi-proof chaining)
-        id:
-          type: string
-          description: Optional identifier for this proof (for multi-proof referencing)
+          description: Detailed error description
     BitstringStatusListCredential:
       type: object
       description: A W3C Bitstring Status List verifiable credential for checking revocation status of other credentials.
@@ -119,16 +94,41 @@ components:
               description: Base64url-encoded compressed bitstring
         proof:
           $ref: '#/components/schemas/DataIntegrityProof'
-    Error:
+    DataIntegrityProof:
       type: object
-      description: Error response
+      description: A W3C Data Integrity cryptographic proof
       properties:
-        error:
+        type:
           type: string
-          description: Error message
-        message:
+          description: Proof type (e.g. DataIntegrityProof, Ed25519Signature2020)
+          example: DataIntegrityProof
+        cryptosuite:
           type: string
-          description: Detailed error description
+          description: The cryptographic suite used
+          example: eddsa-rdfc-2022
+        created:
+          type: string
+          format: date-time
+          description: When the proof was created
+          example: '2024-11-05T19:11:37Z'
+        verificationMethod:
+          type: string
+          description: DID URL of the verification method
+          example: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+        proofPurpose:
+          type: string
+          description: The purpose of this proof
+          example: assertionMethod
+        proofValue:
+          type: string
+          description: The base58-btc encoded proof value
+          example: z4WrjAqrwg92y1RR8S63rav19ZmYWx6Vs1HBcPJgXnCiEfef4i1NqKG7jMyM2DtNdMXvACudKcra92VPxW9hfatbZ
+        previousProof:
+          type: string
+          description: ID of a previous proof this proof covers (for multi-proof chaining)
+        id:
+          type: string
+          description: Optional identifier for this proof (for multi-proof referencing)
 externalDocs:
   description: SpruceID DIDKit Documentation
   url: https://spruceid.dev/docs/didkit/

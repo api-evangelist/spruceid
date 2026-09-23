@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: SpruceID DIDKit HTTP Credentials Identifiers API
-  description: DIDKit is SpruceID's cross-platform toolkit for working with W3C Decentralized Identifiers (DIDs) and Verifiable Credentials (VCs). The DIDKit HTTP server exposes REST endpoints for issuing, presenting, and verifying verifiable credentials and verifiable presentations using standard cryptographic proofs. It implements the W3C VC API specification and supports multiple DID methods including did:key, did:web, did:ethr, and did:tz. DIDKit HTTP does not include built-in authorization and should be deployed behind a reverse proxy in production.
+  title: SpruceID DIDKit HTTP Identifiers API
+  description: DIDKit is SpruceID's cross-platform toolkit for working with W3C Decentralized Identifiers (DIDs) and Verifiable Credentials (VCs).
   version: 1.0.0
   contact:
     name: SpruceID Developer Support
@@ -85,6 +85,16 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      type: object
+      description: Error response
+      properties:
+        error:
+          type: string
+          description: Error message
+        message:
+          type: string
+          description: Detailed error description
     DidDocument:
       type: object
       description: A W3C DID Document
@@ -150,16 +160,6 @@ components:
                 - type: string
                 - type: object
                 - type: array
-    Error:
-      type: object
-      description: Error response
-      properties:
-        error:
-          type: string
-          description: Error message
-        message:
-          type: string
-          description: Detailed error description
 externalDocs:
   description: SpruceID DIDKit Documentation
   url: https://spruceid.dev/docs/didkit/

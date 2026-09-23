@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: SpruceID DIDKit HTTP Credentials Presentations API
-  description: DIDKit is SpruceID's cross-platform toolkit for working with W3C Decentralized Identifiers (DIDs) and Verifiable Credentials (VCs). The DIDKit HTTP server exposes REST endpoints for issuing, presenting, and verifying verifiable credentials and verifiable presentations using standard cryptographic proofs. It implements the W3C VC API specification and supports multiple DID methods including did:key, did:web, did:ethr, and did:tz. DIDKit HTTP does not include built-in authorization and should be deployed behind a reverse proxy in production.
+  title: SpruceID DIDKit HTTP Presentations API
+  description: DIDKit is SpruceID's cross-platform toolkit for working with W3C Decentralized Identifiers (DIDs) and Verifiable Credentials (VCs).
   version: 1.0.0
   contact:
     name: SpruceID Developer Support
@@ -157,22 +157,50 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    VerificationOptions:
+    VerifiablePresentation:
       type: object
-      description: Options for verification operations
+      description: A W3C Verifiable Presentation (VP Data Model 1.1 or 2.0)
+      required:
+      - '@context'
+      - type
       properties:
-        proofPurpose:
+        '@context':
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              oneOf:
+              - type: string
+              - type: object
+          example:
+          - https://www.w3.org/2018/credentials/v1
+        type:
+          type: array
+          items:
+            type: string
+          example:
+          - VerifiablePresentation
+        holder:
           type: string
-          description: Expected proof purpose
-          enum:
-          - assertionMethod
-          - authentication
-          - keyAgreement
-          - capabilityInvocation
-          - capabilityDelegation
-        verificationMethod:
-          type: string
-          description: Expected verification method DID URL
+          description: DID of the holder (required for VP 1.1)
+          example: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+        verifiableCredential:
+          oneOf:
+          - $ref: '#/components/schemas/VerifiableCredential'
+          - type: string
+            description: JWT-encoded verifiable credential
+          - type: array
+            items:
+              oneOf:
+              - $ref: '#/components/schemas/VerifiableCredential'
+              - type: string
+          description: The credential(s) included in the presentation
+        proof:
+          oneOf:
+          - $ref: '#/components/schemas/DataIntegrityProof'
+          - type: array
+            items:
+              $ref: '#/components/schemas/DataIntegrityProof'
     VerifiableCredential:
       type: object
       description: A W3C Verifiable Credential (VC Data Model 1.1 or 2.0). May be represented as a JSON-LD credential with a linked data proof, or as a JWT string.
@@ -250,60 +278,22 @@ components:
             items:
               $ref: '#/components/schemas/DataIntegrityProof'
           description: Cryptographic proof(s) on the credential
-    Error:
+    VerificationOptions:
       type: object
-      description: Error response
+      description: Options for verification operations
       properties:
-        error:
+        proofPurpose:
           type: string
-          description: Error message
-        message:
+          description: Expected proof purpose
+          enum:
+          - assertionMethod
+          - authentication
+          - keyAgreement
+          - capabilityInvocation
+          - capabilityDelegation
+        verificationMethod:
           type: string
-          description: Detailed error description
-    VerifiablePresentation:
-      type: object
-      description: A W3C Verifiable Presentation (VP Data Model 1.1 or 2.0)
-      required:
-      - '@context'
-      - type
-      properties:
-        '@context':
-          oneOf:
-          - type: string
-          - type: array
-            items:
-              oneOf:
-              - type: string
-              - type: object
-          example:
-          - https://www.w3.org/2018/credentials/v1
-        type:
-          type: array
-          items:
-            type: string
-          example:
-          - VerifiablePresentation
-        holder:
-          type: string
-          description: DID of the holder (required for VP 1.1)
-          example: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
-        verifiableCredential:
-          oneOf:
-          - $ref: '#/components/schemas/VerifiableCredential'
-          - type: string
-            description: JWT-encoded verifiable credential
-          - type: array
-            items:
-              oneOf:
-              - $ref: '#/components/schemas/VerifiableCredential'
-              - type: string
-          description: The credential(s) included in the presentation
-        proof:
-          oneOf:
-          - $ref: '#/components/schemas/DataIntegrityProof'
-          - type: array
-            items:
-              $ref: '#/components/schemas/DataIntegrityProof'
+          description: Expected verification method DID URL
     VerifyPresentationRequest:
       type: object
       required:
@@ -316,16 +306,6 @@ components:
             description: JWT-encoded verifiable presentation
         options:
           $ref: '#/components/schemas/VerificationOptions'
-    IssuePresentationRequest:
-      type: object
-      required:
-      - presentation
-      - options
-      properties:
-        presentation:
-          $ref: '#/components/schemas/VerifiablePresentation'
-        options:
-          $ref: '#/components/schemas/JWTOrLDPOptions'
     VerificationResult:
       type: object
       description: Summary of verification checks performed on a credential or presentation. Based on the W3C VC HTTP API VerificationResult schema.
@@ -353,6 +333,35 @@ components:
           items:
             type: string
           example: []
+    IssuePresentationRequest:
+      type: object
+      required:
+      - presentation
+      - options
+      properties:
+        presentation:
+          $ref: '#/components/schemas/VerifiablePresentation'
+        options:
+          $ref: '#/components/schemas/JWTOrLDPOptions'
+    Error:
+      type: object
+      description: Error response
+      properties:
+        error:
+          type: string
+          description: Error message
+        message:
+          type: string
+          description: Detailed error description
+    IssuePresentationResponse:
+      type: object
+      description: A verifiable presentation with proof added
+      properties:
+        verifiablePresentation:
+          oneOf:
+          - $ref: '#/components/schemas/VerifiablePresentation'
+          - type: string
+            description: JWT-encoded verifiable presentation
     JWTOrLDPOptions:
       type: object
       description: Combined options for credential/presentation operations. Controls whether to produce a JWT or Linked Data Proof format.
@@ -418,15 +427,6 @@ components:
         id:
           type: string
           description: Optional identifier for this proof (for multi-proof referencing)
-    IssuePresentationResponse:
-      type: object
-      description: A verifiable presentation with proof added
-      properties:
-        verifiablePresentation:
-          oneOf:
-          - $ref: '#/components/schemas/VerifiablePresentation'
-          - type: string
-            description: JWT-encoded verifiable presentation
 externalDocs:
   description: SpruceID DIDKit Documentation
   url: https://spruceid.dev/docs/didkit/

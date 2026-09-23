@@ -1,11 +1,7 @@
 {
   "provider": "spruceid",
   "sources": [
-    "spruceid-credentials-api-openapi.yml",
-    "spruceid-health-api-openapi.yml",
-    "spruceid-identifiers-api-openapi.yml",
-    "spruceid-presentations-api-openapi.yml",
-    "spruceid-status-api-openapi.yml"
+    "_original/didkit-http-api.yml"
   ],
   "outputs": [
     "spruceid-credentials-api-openapi.yml",
@@ -17,6 +13,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "didkit-http-api.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "spruceid-credentials-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "spruceid-health-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "spruceid-identifiers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "spruceid-presentations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "spruceid-status-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
