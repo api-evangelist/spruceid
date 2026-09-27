@@ -157,6 +157,16 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    IssuePresentationRequest:
+      type: object
+      required:
+      - presentation
+      - options
+      properties:
+        presentation:
+          $ref: '#/components/schemas/VerifiablePresentation'
+        options:
+          $ref: '#/components/schemas/JWTOrLDPOptions'
     VerifiablePresentation:
       type: object
       description: A W3C Verifiable Presentation (VP Data Model 1.1 or 2.0)
@@ -278,34 +288,15 @@ components:
             items:
               $ref: '#/components/schemas/DataIntegrityProof'
           description: Cryptographic proof(s) on the credential
-    VerificationOptions:
+    IssuePresentationResponse:
       type: object
-      description: Options for verification operations
-      properties:
-        proofPurpose:
-          type: string
-          description: Expected proof purpose
-          enum:
-          - assertionMethod
-          - authentication
-          - keyAgreement
-          - capabilityInvocation
-          - capabilityDelegation
-        verificationMethod:
-          type: string
-          description: Expected verification method DID URL
-    VerifyPresentationRequest:
-      type: object
-      required:
-      - verifiablePresentation
+      description: A verifiable presentation with proof added
       properties:
         verifiablePresentation:
           oneOf:
           - $ref: '#/components/schemas/VerifiablePresentation'
           - type: string
             description: JWT-encoded verifiable presentation
-        options:
-          $ref: '#/components/schemas/VerificationOptions'
     VerificationResult:
       type: object
       description: Summary of verification checks performed on a credential or presentation. Based on the W3C VC HTTP API VerificationResult schema.
@@ -333,35 +324,22 @@ components:
           items:
             type: string
           example: []
-    IssuePresentationRequest:
+    VerificationOptions:
       type: object
-      required:
-      - presentation
-      - options
+      description: Options for verification operations
       properties:
-        presentation:
-          $ref: '#/components/schemas/VerifiablePresentation'
-        options:
-          $ref: '#/components/schemas/JWTOrLDPOptions'
-    Error:
-      type: object
-      description: Error response
-      properties:
-        error:
+        proofPurpose:
           type: string
-          description: Error message
-        message:
+          description: Expected proof purpose
+          enum:
+          - assertionMethod
+          - authentication
+          - keyAgreement
+          - capabilityInvocation
+          - capabilityDelegation
+        verificationMethod:
           type: string
-          description: Detailed error description
-    IssuePresentationResponse:
-      type: object
-      description: A verifiable presentation with proof added
-      properties:
-        verifiablePresentation:
-          oneOf:
-          - $ref: '#/components/schemas/VerifiablePresentation'
-          - type: string
-            description: JWT-encoded verifiable presentation
+          description: Expected verification method DID URL
     JWTOrLDPOptions:
       type: object
       description: Combined options for credential/presentation operations. Controls whether to produce a JWT or Linked Data Proof format.
@@ -392,6 +370,28 @@ components:
           type: string
           description: The cryptographic suite (for ldp format)
           example: eddsa-rdfc-2022
+    Error:
+      type: object
+      description: Error response
+      properties:
+        error:
+          type: string
+          description: Error message
+        message:
+          type: string
+          description: Detailed error description
+    VerifyPresentationRequest:
+      type: object
+      required:
+      - verifiablePresentation
+      properties:
+        verifiablePresentation:
+          oneOf:
+          - $ref: '#/components/schemas/VerifiablePresentation'
+          - type: string
+            description: JWT-encoded verifiable presentation
+        options:
+          $ref: '#/components/schemas/VerificationOptions'
     DataIntegrityProof:
       type: object
       description: A W3C Data Integrity cryptographic proof
