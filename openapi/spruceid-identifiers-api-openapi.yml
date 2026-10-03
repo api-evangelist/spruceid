@@ -85,16 +85,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      description: Error response
-      properties:
-        error:
-          type: string
-          description: Error message
-        message:
-          type: string
-          description: Detailed error description
     DidDocument:
       type: object
       description: A W3C DID Document
@@ -160,6 +150,16 @@ components:
                 - type: string
                 - type: object
                 - type: array
+    Error:
+      type: object
+      description: Error response
+      properties:
+        error:
+          type: string
+          description: Error message
+        message:
+          type: string
+          description: Detailed error description
 externalDocs:
   description: SpruceID DIDKit Documentation
   url: https://spruceid.dev/docs/didkit/
