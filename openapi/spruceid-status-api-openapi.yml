@@ -41,51 +41,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      description: Error response
-      properties:
-        error:
-          type: string
-          description: Error message
-        message:
-          type: string
-          description: Detailed error description
-    DataIntegrityProof:
-      type: object
-      description: A W3C Data Integrity cryptographic proof
-      properties:
-        type:
-          type: string
-          description: Proof type (e.g. DataIntegrityProof, Ed25519Signature2020)
-          example: DataIntegrityProof
-        cryptosuite:
-          type: string
-          description: The cryptographic suite used
-          example: eddsa-rdfc-2022
-        created:
-          type: string
-          format: date-time
-          description: When the proof was created
-          example: '2024-11-05T19:11:37Z'
-        verificationMethod:
-          type: string
-          description: DID URL of the verification method
-          example: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
-        proofPurpose:
-          type: string
-          description: The purpose of this proof
-          example: assertionMethod
-        proofValue:
-          type: string
-          description: The base58-btc encoded proof value
-          example: z4WrjAqrwg92y1RR8S63rav19ZmYWx6Vs1HBcPJgXnCiEfef4i1NqKG7jMyM2DtNdMXvACudKcra92VPxW9hfatbZ
-        previousProof:
-          type: string
-          description: ID of a previous proof this proof covers (for multi-proof chaining)
-        id:
-          type: string
-          description: Optional identifier for this proof (for multi-proof referencing)
     BitstringStatusListCredential:
       type: object
       description: A W3C Bitstring Status List verifiable credential for checking revocation status of other credentials.
@@ -129,6 +84,51 @@ components:
               description: Base64url-encoded compressed bitstring
         proof:
           $ref: '#/components/schemas/DataIntegrityProof'
+    DataIntegrityProof:
+      type: object
+      description: A W3C Data Integrity cryptographic proof
+      properties:
+        type:
+          type: string
+          description: Proof type (e.g. DataIntegrityProof, Ed25519Signature2020)
+          example: DataIntegrityProof
+        cryptosuite:
+          type: string
+          description: The cryptographic suite used
+          example: eddsa-rdfc-2022
+        created:
+          type: string
+          format: date-time
+          description: When the proof was created
+          example: '2024-11-05T19:11:37Z'
+        verificationMethod:
+          type: string
+          description: DID URL of the verification method
+          example: did:key:z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b#z6MktKwz7Ge1Yxzr4JHavN33wiwa8y81QdcMRLXQsrH9T53b
+        proofPurpose:
+          type: string
+          description: The purpose of this proof
+          example: assertionMethod
+        proofValue:
+          type: string
+          description: The base58-btc encoded proof value
+          example: z4WrjAqrwg92y1RR8S63rav19ZmYWx6Vs1HBcPJgXnCiEfef4i1NqKG7jMyM2DtNdMXvACudKcra92VPxW9hfatbZ
+        previousProof:
+          type: string
+          description: ID of a previous proof this proof covers (for multi-proof chaining)
+        id:
+          type: string
+          description: Optional identifier for this proof (for multi-proof referencing)
+    Error:
+      type: object
+      description: Error response
+      properties:
+        error:
+          type: string
+          description: Error message
+        message:
+          type: string
+          description: Detailed error description
 externalDocs:
   description: SpruceID DIDKit Documentation
   url: https://spruceid.dev/docs/didkit/
